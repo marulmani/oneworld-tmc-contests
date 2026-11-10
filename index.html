@@ -82,10 +82,10 @@
       </div>
       <div class="flex items-center gap-3">
         <!-- Admin Mode Toggle Button -->
-        <button 
-          id="adminToggleBtn" 
-          onclick="toggleAdminMode()" 
-          class="flex items-center gap-1.5 px-3 py-1 bg-white/15 hover:bg-white/25 rounded-full text-xs font-bold transition border border-white/20 shadow-sm"
+        <button
+          id="adminToggleBtn"
+          onclick="toggleAdminMode()"
+          class="hidden items-center gap-1.5 px-3 py-1 bg-white/15 hover:bg-white/25 rounded-full text-xs font-bold transition border border-white/20 shadow-sm"
           title="Toggle Organizer / Committee Live Editing"
         >
           <i class="fas fa-sliders-h text-tmGold"></i>
@@ -1147,6 +1147,30 @@
       }
     ];
 
+    // --- 1b. ORGANIZER ACCESS CONTROL ---
+    // Two layers, both easy to change below:
+    //  1) LINK KEY  - the page only shows the "Organizer Edit Mode" button at all
+    //                 when opened with ?organizer=<ADMIN_LINK_KEY> in the URL.
+    //  2) PASSCODE  - clicking the button still asks for this passcode before
+    //                 edit mode actually turns on.
+    // Note: this is a plain static page (no login server), so these are a
+    // deterrent against casual visitors, not real security against someone
+    // who reads the page source. Change both values any time by editing them
+    // here and re-publishing index.html.
+    const ADMIN_LINK_KEY = 'owtm2026';
+    const ADMIN_PASSCODE = '0158-9773';
+
+    function checkOrganizerLinkAccess() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('organizer') === ADMIN_LINK_KEY) {
+        const btn = document.getElementById('adminToggleBtn');
+        if (btn) {
+          btn.classList.remove('hidden');
+          btn.classList.add('flex');
+        }
+      }
+    }
+
     // --- 2. LOCALSTORAGE STATE GETTERS & SETTERS ---
     let isAdminMode = false;
     let currentAgendaFilter = 'all';
@@ -1193,6 +1217,14 @@
 
     // --- 3. ADMIN TOGGLE MODE ---
     function toggleAdminMode() {
+      if (!isAdminMode) {
+        const entered = prompt('Enter the Organizer passcode to unlock editing:');
+        if (entered === null) return; // cancelled
+        if (entered.trim() !== ADMIN_PASSCODE) {
+          showToast('❌ Incorrect passcode.');
+          return;
+        }
+      }
       isAdminMode = !isAdminMode;
       const banner = document.getElementById('adminModeBanner');
       const text = document.getElementById('adminToggleText');
@@ -1691,6 +1723,7 @@
       renderRolePlayers();
       renderAgenda();
       renderExcelTable();
+      checkOrganizerLinkAccess();
     };
   </script>
 </body>
