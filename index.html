@@ -326,40 +326,41 @@
       </div>
 
       <!-- Controls & View Switcher -->
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
-        <!-- Agenda Filter Tabs -->
-        <div class="flex flex-wrap items-center justify-center gap-2">
-          <button onclick="filterAgenda('all')" id="tab-all" class="agenda-tab active px-4 py-2 rounded-xl font-heading text-xs sm:text-sm font-bold transition bg-tmNavy text-white shadow-sm">
+      <div class="space-y-3 mb-6">
+        <!-- Agenda Filter Tabs (segmented control: 2x2 below 768px, one row from md up) -->
+        <div role="tablist" aria-label="Filter agenda by contest" class="grid grid-cols-2 md:flex gap-1 bg-white border border-slate-200 rounded-2xl p-1 shadow-sm">
+          <button onclick="filterAgenda('all')" id="tab-all" role="tab" aria-selected="true" class="agenda-tab md:flex-1 px-3 py-2.5 rounded-xl font-heading text-xs sm:text-sm font-bold transition whitespace-nowrap bg-tmNavy text-white shadow-sm">
             Full Agenda
           </button>
-          <button onclick="filterAgenda('international')" id="tab-international" class="agenda-tab px-4 py-2 rounded-xl font-heading text-xs sm:text-sm font-bold transition bg-white text-slate-600 hover:bg-slate-200">
+          <button onclick="filterAgenda('international')" id="tab-international" role="tab" aria-selected="false" class="agenda-tab md:flex-1 px-3 py-2.5 rounded-xl font-heading text-xs sm:text-sm font-bold transition whitespace-nowrap bg-white text-slate-600 hover:bg-slate-100">
             International Speech
           </button>
-          <button onclick="filterAgenda('evaluation')" id="tab-evaluation" class="agenda-tab px-4 py-2 rounded-xl font-heading text-xs sm:text-sm font-bold transition bg-white text-slate-600 hover:bg-slate-200">
+          <button onclick="filterAgenda('evaluation')" id="tab-evaluation" role="tab" aria-selected="false" class="agenda-tab md:flex-1 px-3 py-2.5 rounded-xl font-heading text-xs sm:text-sm font-bold transition whitespace-nowrap bg-white text-slate-600 hover:bg-slate-100">
             Evaluation Contest
           </button>
-          <button onclick="filterAgenda('topics')" id="tab-topics" class="agenda-tab px-4 py-2 rounded-xl font-heading text-xs sm:text-sm font-bold transition bg-white text-slate-600 hover:bg-slate-200">
+          <button onclick="filterAgenda('topics')" id="tab-topics" role="tab" aria-selected="false" class="agenda-tab md:flex-1 px-3 py-2.5 rounded-xl font-heading text-xs sm:text-sm font-bold transition whitespace-nowrap bg-white text-slate-600 hover:bg-slate-100">
             Table Topics Contest
           </button>
         </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-2">
-        <!-- Download formatted Excel agenda -->
-        <button onclick="downloadAgendaExcel(this)" class="px-3.5 py-2 rounded-xl bg-[#15803D] hover:bg-[#166534] disabled:opacity-60 disabled:cursor-wait text-white text-xs font-bold shadow-sm transition flex items-center gap-1.5" title="Download the full agenda as a formatted Excel file">
-          <i class="fas fa-file-excel"></i>
-          <span>Download Excel</span>
-        </button>
-        <!-- Table vs Card View Toggle -->
-        <div class="flex items-center bg-white border border-slate-200 rounded-xl p-1 shadow-sm text-xs font-semibold">
-          <button id="viewBtnTable" onclick="setAgendaView('table')" class="px-3 py-1.5 rounded-lg bg-tmNavy text-white font-bold transition flex items-center gap-1.5 shadow-xs">
-            <i class="fas fa-table"></i>
-            <span>Excel Sheet View</span>
+        <!-- Toolbar: view toggle (left) + Excel download (right) -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <!-- Table vs Card View Toggle -->
+          <div class="flex items-center h-11 bg-white border border-slate-200 rounded-xl p-1 shadow-sm text-xs sm:text-sm font-semibold">
+            <button id="viewBtnTable" onclick="setAgendaView('table')" class="h-full flex-1 sm:flex-none px-4 rounded-lg transition flex items-center justify-center gap-1.5 bg-tmNavy text-white font-bold shadow-sm">
+              <i class="fas fa-table"></i>
+              <span>Excel Sheet View</span>
+            </button>
+            <button id="viewBtnCard" onclick="setAgendaView('cards')" class="h-full flex-1 sm:flex-none px-4 rounded-lg transition flex items-center justify-center gap-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-50">
+              <i class="fas fa-th-large"></i>
+              <span>Cards View</span>
+            </button>
+          </div>
+          <!-- Download formatted Excel agenda -->
+          <button onclick="downloadAgendaExcel(this)" class="h-11 px-5 rounded-xl bg-[#15803D] hover:bg-[#166534] disabled:opacity-60 disabled:cursor-wait text-white text-xs sm:text-sm font-bold shadow-sm transition flex items-center justify-center gap-2" title="Download the full agenda as a formatted Excel file">
+            <i class="fas fa-file-excel"></i>
+            <span>Download Excel</span>
           </button>
-          <button id="viewBtnCard" onclick="setAgendaView('cards')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
-            <i class="fas fa-th-large"></i>
-            <span>Cards View</span>
-          </button>
-        </div>
         </div>
       </div>
 
@@ -1343,13 +1344,13 @@
       if (viewMode === 'table') {
         tableView.classList.remove('hidden');
         cardsView.classList.add('hidden');
-        btnTable.className = "px-3 py-1.5 rounded-lg bg-tmNavy text-white font-bold transition flex items-center gap-1.5 shadow-xs";
-        btnCard.className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5";
+        btnTable.className = "h-full flex-1 sm:flex-none px-4 rounded-lg transition flex items-center justify-center gap-1.5 bg-tmNavy text-white font-bold shadow-sm";
+        btnCard.className = "h-full flex-1 sm:flex-none px-4 rounded-lg transition flex items-center justify-center gap-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-50";
       } else {
         tableView.classList.add('hidden');
         cardsView.classList.remove('hidden');
-        btnCard.className = "px-3 py-1.5 rounded-lg bg-tmNavy text-white font-bold transition flex items-center gap-1.5 shadow-xs";
-        btnTable.className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5";
+        btnCard.className = "h-full flex-1 sm:flex-none px-4 rounded-lg transition flex items-center justify-center gap-1.5 bg-tmNavy text-white font-bold shadow-sm";
+        btnTable.className = "h-full flex-1 sm:flex-none px-4 rounded-lg transition flex items-center justify-center gap-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-50";
       }
     }
 
@@ -1646,12 +1647,14 @@
       const tabs = document.querySelectorAll('.agenda-tab');
       tabs.forEach(tab => {
         tab.classList.remove('bg-tmNavy', 'text-white', 'shadow-sm');
-        tab.classList.add('bg-white', 'text-slate-600');
+        tab.classList.add('bg-white', 'text-slate-600', 'hover:bg-slate-100');
+        tab.setAttribute('aria-selected', 'false');
       });
       const current = document.getElementById('tab-' + cat);
       if (current) {
-        current.classList.remove('bg-white', 'text-slate-600');
+        current.classList.remove('bg-white', 'text-slate-600', 'hover:bg-slate-100');
         current.classList.add('bg-tmNavy', 'text-white', 'shadow-sm');
+        current.setAttribute('aria-selected', 'true');
       }
       renderAgenda();
       renderExcelTable();
