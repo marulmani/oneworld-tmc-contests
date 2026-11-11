@@ -4,14 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OneWorld Toastmasters Club Contests 2026</title>
+  <link rel="icon" type="image/png" href="assets/tm-logo.png" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Google Fonts: Montserrat & Open Sans -->
+  <!-- Google Fonts: brand manual free alternates — Montserrat (headings, for Gotham) & Source Sans 3 (body, for Myriad Pro) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -19,7 +20,7 @@
         extend: {
           fontFamily: {
             heading: ['Montserrat', 'sans-serif'],
-            sans: ['Open Sans', 'sans-serif'],
+            sans: ['"Source Sans 3"', 'Arial', 'sans-serif'],
           },
           colors: {
             tmMaroon: {
@@ -50,11 +51,15 @@
   </script>
 
   <style>
+    /* Brand manual: only the approved Loyal Blue -> Blissful Blue gradient,
+       laid over an official Toastmasters photo as a transparency. */
     .bg-gradient-tm {
-      background: linear-gradient(135deg, #002B44 0%, #004165 45%, #772432 100%);
-    }
-    .text-glow {
-      text-shadow: 0 2px 10px rgba(242, 223, 116, 0.4);
+      background-color: #004165;
+      background-image:
+        linear-gradient(90deg, rgba(0, 65, 101, 0.94) 0%, rgba(0, 65, 101, 0.88) 45%, rgba(0, 96, 148, 0.78) 100%),
+        url('assets/photo-contest.jpg');
+      background-size: cover;
+      background-position: center 35%;
     }
     /* Keep section headings clear of the sticky header when jumping via nav links */
     section[id] { scroll-margin-top: 4.5rem; }
@@ -119,12 +124,10 @@
 
   <!-- MAIN NAVIGATION -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[76px] sm:h-20 flex items-center justify-between gap-2">
       <!-- Club Brand -->
       <a href="#" class="flex items-center gap-2.5 sm:gap-3 group min-w-0">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-tmNavy flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform flex-shrink-0">
-          <i class="fas fa-bullhorn text-tmGold text-lg sm:text-xl"></i>
-        </div>
+        <img src="assets/tm-logo.png" alt="Toastmasters International logo" width="72" height="60" class="w-[72px] h-auto flex-shrink-0" />
         <div class="min-w-0">
           <div class="font-heading font-extrabold text-sm sm:text-xl text-tmNavy tracking-tight leading-tight">
             ONEWORLD <span class="text-tmMaroon">TOASTMASTERS</span>
@@ -174,8 +177,6 @@
 
   <!-- HERO SECTION -->
   <section id="about" class="relative bg-gradient-tm text-white overflow-hidden pt-10 pb-16 lg:pt-16 lg:pb-24">
-    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#F2DF74_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
-    <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-tmGold/10 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -189,7 +190,7 @@
 
           <h1 class="font-heading font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-tight">
             <span id="heroTitleLine1">OneWorld Toastmasters</span> <br />
-            <span id="heroTitleLine2" class="text-tmGold text-glow">Club Contests 2026</span>
+            <span id="heroTitleLine2" class="text-tmGold">Club Contests 2026</span>
           </h1>
 
           <p id="heroDescText" class="text-base sm:text-lg text-slate-200 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
@@ -255,7 +256,6 @@
             </div>
 
             <div class="text-center text-xs text-slate-200 border-t border-white/10 pt-4">
-              <i class="fas fa-bullhorn text-tmGold mr-1.5"></i>
               <span>OneWorld Toastmasters Club • District 51 Area W4</span>
             </div>
           </div>
@@ -343,6 +343,12 @@
           </button>
         </div>
 
+        <div class="flex flex-wrap items-center justify-center gap-2">
+        <!-- Download formatted Excel agenda -->
+        <button onclick="downloadAgendaExcel(this)" class="px-3.5 py-2 rounded-xl bg-[#15803D] hover:bg-[#166534] disabled:opacity-60 disabled:cursor-wait text-white text-xs font-bold shadow-sm transition flex items-center gap-1.5" title="Download the full agenda as a formatted Excel file">
+          <i class="fas fa-file-excel"></i>
+          <span>Download Excel</span>
+        </button>
         <!-- Table vs Card View Toggle -->
         <div class="flex items-center bg-white border border-slate-200 rounded-xl p-1 shadow-sm text-xs font-semibold">
           <button id="viewBtnTable" onclick="setAgendaView('table')" class="px-3 py-1.5 rounded-lg bg-tmNavy text-white font-bold transition flex items-center gap-1.5 shadow-xs">
@@ -353,6 +359,7 @@
             <i class="fas fa-th-large"></i>
             <span>Cards View</span>
           </button>
+        </div>
         </div>
       </div>
 
@@ -890,26 +897,29 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="bg-tmNavy-dark text-slate-300 border-t border-white/10 pt-10 pb-8">
+  <footer class="bg-tmNavy text-slate-200 border-t border-white/10 pt-10 pb-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
         <div>
           <div class="font-heading font-extrabold text-lg text-white">
             OneWorld Toastmasters Club
           </div>
-          <p class="text-xs text-slate-400">
+          <p class="text-xs text-slate-300">
             District 51 • Division W • Area W4 • Club No. 01589773
           </p>
+          <p class="text-[11px] font-heading font-bold tracking-widest text-tmGold uppercase mt-1">Where Leaders Are Made</p>
         </div>
-        <div class="flex items-center gap-5 text-xs font-semibold">
+        <div class="flex flex-wrap justify-center items-center gap-x-5 gap-y-2 text-xs font-semibold">
           <a href="#about" class="hover:text-tmGold transition">About</a>
           <a href="#agenda" class="hover:text-tmGold transition">Agenda</a>
           <a href="#roleplayers" class="hover:text-tmGold transition">Role Players</a>
           <a href="#contestants" class="hover:text-tmGold transition">Contestants</a>
         </div>
       </div>
-      <div class="text-xs text-slate-500 text-center border-t border-white/10 pt-4">
-        &copy; 2026 OneWorld Toastmasters Club. Where Leaders Are Made.
+      <div class="text-[11px] leading-relaxed text-slate-300 text-center border-t border-white/10 pt-4 space-y-2 max-w-4xl mx-auto">
+        <p>The information on this website is for the sole use of Toastmasters' members, for Toastmasters business only. It is not to be used for solicitation and distribution of non-Toastmasters material or information.</p>
+        <p class="text-slate-400">Toastmasters International, the Toastmasters International logo, and all other Toastmasters International trademarks and copyrights are the sole property of Toastmasters International.</p>
+        <p class="text-slate-400">&copy; 2026 OneWorld Toastmasters Club</p>
       </div>
     </div>
   </footer>
@@ -2297,6 +2307,319 @@
       renderOfficers();
       renderContestants();
       showToast("↺ Reverted all items to official club contest defaults.");
+    }
+
+    // --- 6b. EXCEL AGENDA EXPORT (Toastmasters brand styling) ---
+    // ExcelJS is lazy-loaded only when someone clicks "Download Excel".
+    // Follows the Toastmasters International Brand Manual (v2.0, Rev. 08/2026):
+    // official TI logo only (clubs may not create their own logo), Loyal Blue /
+    // True Maroon primaries with Cool Gray / Happy Yellow accents, Montserrat for
+    // headings (Gotham alternate) and Arial for body copy (approved tertiary face).
+    const EXCELJS_URL = 'https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js';
+    const TM_BRAND = { navy: 'FF004165', navyDark: 'FF006094', maroon: 'FF772432', gold: 'FFF2DF74', gray: 'FFA9B2B1', fairGray: 'FFF5F5F5', lightBlue: 'FFE5ECF0', bannerBlue: 'FFCCD9E0' };
+
+    function loadScriptOnce(src) {
+      return new Promise((resolve, reject) => {
+        if (window.ExcelJS) return resolve();
+        const existing = document.querySelector(`script[data-src="${src}"]`);
+        if (existing) { existing.addEventListener('load', resolve); existing.addEventListener('error', reject); return; }
+        const s = document.createElement('script');
+        s.src = src; s.async = true; s.dataset.src = src;
+        s.onload = resolve; s.onerror = () => reject(new Error('Could not load Excel library'));
+        document.head.appendChild(s);
+      });
+    }
+
+    async function fetchImageAsDataUrl(path) {
+      try {
+        const res = await fetch(path, { cache: 'no-cache' });
+        if (!res.ok || !(res.headers.get('content-type') || '').startsWith('image/')) return null;
+        const blob = await res.blob();
+        return await new Promise(r => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.onerror = () => r(null); fr.readAsDataURL(blob); });
+      } catch (e) { return null; }
+    }
+
+    function cleanCell(text) {
+      return String(text == null ? '' : text).replace(/\r/g, '').trim();
+    }
+
+    async function buildAgendaWorkbook() {
+      await loadScriptOnce(EXCELJS_URL);
+      const items = getAgendaData();
+      const t = getSiteText();
+      const contestants = getContestantsData();
+      const officers = getOfficersData();
+
+      const wb = new ExcelJS.Workbook();
+      wb.creator = 'OneWorld Toastmasters Club';
+      wb.title = 'Club Contests 2026 – Program Agenda';
+      wb.created = new Date();
+
+      const ws = wb.addWorksheet('Contest Agenda', {
+        properties: { defaultRowHeight: 18 },
+        views: [{ showGridLines: false }],
+        pageSetup: {
+          // A4 landscape with columns sized to fit at 100%: Excel for Mac does not
+          // reliably honour fit-to-width / scale, so the layout never depends on them.
+          paperSize: 9, orientation: 'landscape',
+          horizontalCentered: true,
+          margins: { left: 0.4, right: 0.4, top: 0.5, bottom: 0.6, header: 0.25, footer: 0.3 },
+          printTitlesRow: '8:9'
+        },
+        headerFooter: {
+          oddFooter: '&L&8OneWorld Toastmasters Club • Club No. 01589773&C&8Where Leaders Are Made&R&8Page &P of &N'
+        }
+      });
+
+      ws.columns = [
+        // ~111 width units total = fits A4 landscape at 100% in Excel for Mac and Windows
+        { key: 'from', width: 8.5 }, { key: 'to', width: 8.5 }, { key: 'mins', width: 6 },
+        { key: 'g', width: 5 }, { key: 'y', width: 5 }, { key: 'r', width: 5 },
+        { key: 'program', width: 50 }, { key: 'role', width: 23 }
+      ];
+
+      const FONT = 'Arial';
+      const HEAD = 'Montserrat';
+      const thin = { style: 'thin', color: { argb: 'FFCBD5E1' } };
+      const box = { top: thin, left: thin, bottom: thin, right: thin };
+      const fill = argb => ({ type: 'pattern', pattern: 'solid', fgColor: { argb } });
+      const center = { vertical: 'middle', horizontal: 'center', wrapText: true };
+      const left = { vertical: 'middle', horizontal: 'left', wrapText: true, indent: 1 };
+
+      // ---- Header band (rows 1-4) ----
+      [30, 22, 18, 18].forEach((h, i) => { ws.getRow(i + 1).height = h; });
+      ws.mergeCells('A1:B4');
+      ws.mergeCells('C1:G1'); ws.mergeCells('C2:G2'); ws.mergeCells('C3:G3'); ws.mergeCells('C4:G4');
+      ws.mergeCells('H1:H4');
+
+      ws.getCell('C1').value = 'ONEWORLD TOASTMASTERS CLUB';
+      ws.getCell('C1').font = { name: HEAD, size: 16, bold: true, color: { argb: TM_BRAND.navy } };
+      ws.getCell('C2').value = `${t.heroTitle2 || 'Club Contests 2026'} — Official Program Agenda`;
+      ws.getCell('C2').font = { name: HEAD, size: 12, bold: true, color: { argb: TM_BRAND.maroon } };
+      ws.getCell('C3').value = 'Club No. 01589773  •  Area W4  •  Division W  •  District 51';
+      ws.getCell('C3').font = { name: FONT, size: 9, color: { argb: 'FF475569' } };
+      ws.getCell('C4').value = 'Thursday, 26 November 2026  •  7:30 – 9:40 PM (MYT)  •  Plaza Usahawan, KL';
+      ws.getCell('C4').font = { name: FONT, size: 9, bold: true, color: { argb: 'FF1E293B' } };
+      ['C1', 'C2', 'C3', 'C4'].forEach(a => { ws.getCell(a).alignment = { vertical: 'middle', horizontal: 'center' }; });
+
+      // Official Toastmasters International logo (top-left, with clear space around it)
+      const tmLogo = await fetchImageAsDataUrl('assets/tm-logo.png');
+      if (tmLogo) {
+        const tmImgId = wb.addImage({ base64: tmLogo, extension: 'png' });
+        ws.addImage(tmImgId, { tl: { col: 0.3, row: 0.2 }, ext: { width: 110, height: 91 }, editAs: 'oneCell' });
+      }
+      // Official tagline (all caps is an approved form)
+      const h = ws.getCell('H1');
+      h.value = { richText: [
+        { text: 'WHERE LEADERS\nARE MADE', font: { name: HEAD, size: 10, bold: true, color: { argb: TM_BRAND.maroon } } }
+      ] };
+      h.alignment = center;
+
+      // Row 5: True Maroon rule, Row 6: timer line, Row 7: spacer
+      ws.getRow(5).height = 5;
+      for (let c = 1; c <= 8; c++) ws.getRow(5).getCell(c).fill = fill(TM_BRAND.maroon);
+      ws.mergeCells('A6:H6');
+      ws.getRow(6).height = 22;
+      const timerCell = ws.getCell('A6');
+      timerCell.value = { richText: [
+        { text: '⏱  Timer 1:\u00A0', font: { name: FONT, size: 10, bold: true, color: { argb: TM_BRAND.navy } } },
+        { text: `${t.timer1 || 'TBA'}\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0`, font: { name: FONT, size: 10, color: { argb: 'FF1E293B' } } },
+        { text: 'Timer 2:\u00A0', font: { name: FONT, size: 10, bold: true, color: { argb: TM_BRAND.navy } } },
+        { text: `${t.timer2 || 'TBA'}\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0`, font: { name: FONT, size: 10, color: { argb: 'FF1E293B' } } },
+        { text: 'G / Y / R = Green / Amber / Red signals (minutes)', font: { name: FONT, size: 9, italic: true, color: { argb: 'FF64748B' } } }
+      ] };
+      timerCell.alignment = { vertical: 'middle', horizontal: 'center' };
+      timerCell.fill = fill(TM_BRAND.fairGray);
+      ws.getRow(7).height = 6;
+
+      // ---- Table headers (rows 8-9) ----
+      ws.mergeCells('A8:C8'); ws.mergeCells('D8:F8');
+      const h8 = ws.getRow(8); h8.height = 20;
+      h8.getCell(1).value = 'TIME'; h8.getCell(4).value = 'TIMING GUIDE'; h8.getCell(7).value = 'PROGRAM'; h8.getCell(8).value = 'ROLE PLAYER';
+      const h9 = ws.getRow(9); h9.height = 20;
+      ['From', 'To', 'Mins', 'G', 'Y', 'R', 'Session / Details', 'In-Charge'].forEach((v, i) => { h9.getCell(i + 1).value = v; });
+      for (let c = 1; c <= 8; c++) {
+        const a = h8.getCell(c), b = h9.getCell(c);
+        a.fill = fill(TM_BRAND.navy); b.fill = fill(TM_BRAND.navyDark);
+        a.font = { name: FONT, size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+        b.font = { name: FONT, size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+        a.alignment = c >= 7 ? left : center; b.alignment = c >= 7 ? left : center;
+        a.border = box; b.border = box;
+      }
+      h9.getCell(4).fill = fill('FF15803D'); h9.getCell(5).fill = fill('FFD97706'); h9.getCell(6).fill = fill('FFBE123C');
+
+      // ---- Agenda rows ----
+      let rowNo = 10;
+      items.forEach(item => {
+        const row = ws.getRow(rowNo);
+        if (item.isSectionBanner) {
+          ws.mergeCells(`A${rowNo}:H${rowNo}`);
+          const cell = row.getCell(1);
+          cell.value = cleanCell(item.program).toUpperCase();
+          cell.font = { name: HEAD, size: 11, bold: true, color: { argb: TM_BRAND.navy } };
+          cell.alignment = { vertical: 'middle', horizontal: 'center' };
+          cell.fill = fill(TM_BRAND.bannerBlue);
+          cell.border = { top: { style: 'medium', color: { argb: TM_BRAND.navy } }, bottom: { style: 'medium', color: { argb: TM_BRAND.navy } }, left: thin, right: thin };
+          row.height = 24;
+          rowNo++;
+          return;
+        }
+
+        row.getCell(1).value = cleanCell(item.from);
+        row.getCell(2).value = cleanCell(item.to);
+        const num = v => { const s = cleanCell(v); return s !== '' && !isNaN(Number(s)) ? Number(s) : s; };
+        row.getCell(3).value = num(item.mins);
+        row.getCell(4).value = num(item.g);
+        row.getCell(5).value = num(item.y);
+        row.getCell(6).value = num(item.r);
+        row.getCell(8).value = cleanCell(item.rolePlayer);
+
+        const programText = cleanCell(item.program);
+        const details = cleanCell(item.details);
+        if (item.isSectionHeader) {
+          row.getCell(7).value = programText.toUpperCase();
+        } else {
+          const parts = [{ text: programText, font: { name: FONT, size: 10, bold: !item.isSubRow, color: { argb: 'FF0F172A' } } }];
+          if (details) parts.push({ text: '\n' + details, font: { name: FONT, size: 9, italic: true, color: { argb: 'FF64748B' } } });
+          row.getCell(7).value = { richText: parts };
+        }
+
+        const lines = programText.split('\n').reduce((n, l) => n + Math.max(1, Math.ceil(l.length / 56)), 0) + (details ? Math.ceil(details.length / 68) : 0);
+        row.height = Math.max(22, lines * 14 + 10);
+
+        for (let c = 1; c <= 8; c++) {
+          const cell = row.getCell(c);
+          cell.border = box;
+          cell.alignment = c >= 7 ? left : center;
+          if (!cell.font || c !== 7) cell.font = { name: FONT, size: 10, color: { argb: 'FF1E293B' } };
+        }
+        row.getCell(1).font = { name: FONT, size: 10, bold: true, color: { argb: 'FF1E293B' } };
+        row.getCell(4).font = { name: FONT, size: 10, bold: true, color: { argb: 'FF166534' } };
+        row.getCell(5).font = { name: FONT, size: 10, bold: true, color: { argb: 'FF92400E' } };
+        row.getCell(6).font = { name: FONT, size: 10, bold: true, color: { argb: 'FF9F1239' } };
+        row.getCell(4).fill = fill('FFECFDF5'); row.getCell(5).fill = fill('FFFFFBEB'); row.getCell(6).fill = fill('FFFFF1F2');
+
+        if (item.isSectionHeader) {
+          for (let c = 1; c <= 8; c++) {
+            const cell = row.getCell(c);
+            if (c < 4 || c > 6) cell.fill = fill(TM_BRAND.lightBlue);
+            cell.font = { name: FONT, size: c === 7 ? 11 : 10, bold: true, color: { argb: c >= 4 && c <= 6 ? cell.font.color.argb : TM_BRAND.navy } };
+            cell.border = { ...box, top: { style: 'thin', color: { argb: TM_BRAND.navy } }, bottom: { style: 'thin', color: { argb: TM_BRAND.navy } } };
+          }
+          row.height = 22;
+        } else if (item.highlightRow) {
+          [1, 2, 3, 7, 8].forEach(c => { row.getCell(c).fill = fill('FFFEF3C7'); });
+        } else if (item.isSubRow) {
+          [1, 2, 3, 7, 8].forEach(c => { row.getCell(c).fill = fill(TM_BRAND.fairGray); });
+        }
+        rowNo++;
+      });
+
+      // ---- Timing rules ----
+      rowNo += 1;
+      const sectionTitle = (text) => {
+        ws.mergeCells(`A${rowNo}:H${rowNo}`);
+        const cell = ws.getCell(`A${rowNo}`);
+        cell.value = text;
+        cell.font = { name: HEAD, size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+        cell.fill = fill(TM_BRAND.maroon);
+        cell.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+        ws.getRow(rowNo).height = 20;
+        rowNo++;
+      };
+      const infoRow = (label, value, labelFill, labelColor) => {
+        ws.mergeCells(`A${rowNo}:F${rowNo}`); ws.mergeCells(`G${rowNo}:H${rowNo}`);
+        const l = ws.getCell(`A${rowNo}`), v = ws.getCell(`G${rowNo}`);
+        l.value = label; v.value = value;
+        l.font = { name: FONT, size: 10, bold: true, color: { argb: labelColor || 'FF0F172A' } };
+        v.font = { name: FONT, size: 10, color: { argb: 'FF1E293B' } };
+        l.fill = fill(labelFill || 'FFF8FAFC');
+        l.alignment = left; v.alignment = left;
+        for (let c = 1; c <= 8; c++) ws.getRow(rowNo).getCell(c).border = box;
+        ws.getRow(rowNo).height = String(value).length > 62 ? 32 : 20;
+        rowNo++;
+      };
+
+      sectionTitle('OFFICIAL TIMER SIGNALS & DISQUALIFICATION RULES');
+      infoRow('Green Light', 'Minimum qualifying time reached', 'FFDCFCE7', 'FF166534');
+      infoRow('Amber / Yellow', 'Mid-point target warning', 'FFFEF3C7', 'FF92400E');
+      infoRow('Red Light', 'Maximum allocated time reached', 'FFFFE4E6', 'FF9F1239');
+      infoRow('Grace Period', '30 seconds buffer (+/-) before disqualification. No other signal will be shown for exceeding the time.', 'FFF1F5F9', 'FF0F172A');
+      infoRow('Official Timers', `Timer 1: ${t.timer1 || 'TBA'}     •     Timer 2: ${t.timer2 || 'TBA'}`, 'FFF1F5F9', TM_BRAND.navy);
+
+      // ---- Speaking orders ----
+      rowNo += 1;
+      sectionTitle('OFFICIAL SPEAKING ORDERS');
+      const orderLine = list => (list || []).map((c, i) => `${i + 1}. ${c.name}`).join('     ') || 'TBA';
+      infoRow('International Speech (5–7 min)', orderLine(contestants.international));
+      infoRow('Evaluation Contest (2–3 min)', orderLine(contestants.evaluation));
+      infoRow('Table Topics Contest (1–2 min)', orderLine(contestants.topics));
+
+      // ---- Club officers ----
+      rowNo += 1;
+      sectionTitle('EXECUTIVE CLUB OFFICERS 2026 – 2027');
+      for (let i = 0; i < officers.length; i += 2) {
+        const pair = officers.slice(i, i + 2);
+        // Two officers per row: first in A:F (time + timing columns), second in G:H
+        ws.mergeCells(`A${rowNo}:F${rowNo}`); ws.mergeCells(`G${rowNo}:H${rowNo}`);
+        const fmt = o => o ? `${o.badge}: ${o.name}` : '';
+        ws.getCell(`A${rowNo}`).value = fmt(pair[0]);
+        ws.getCell(`G${rowNo}`).value = fmt(pair[1]);
+        ['A', 'G'].forEach(col => {
+          const cell = ws.getCell(`${col}${rowNo}`);
+          cell.font = { name: FONT, size: 10, color: { argb: 'FF1E293B' } };
+          cell.alignment = left;
+        });
+        for (let c = 1; c <= 8; c++) ws.getRow(rowNo).getCell(c).border = box;
+        ws.getRow(rowNo).height = 18;
+        rowNo++;
+      }
+
+      // ---- Mission footer ----
+      rowNo += 1;
+      ws.mergeCells(`A${rowNo}:H${rowNo}`);
+      const m = ws.getCell(`A${rowNo}`);
+      m.value = { richText: [
+        { text: 'Club Mission: ', font: { name: FONT, size: 9, bold: true, color: { argb: TM_BRAND.maroon } } },
+        { text: cleanCell(t.clubMission).replace(/^"|"$/g, ''), font: { name: FONT, size: 9, italic: true, color: { argb: 'FF475569' } } }
+      ] };
+      m.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+      ws.getRow(rowNo).height = 30;
+      rowNo++;
+      ws.mergeCells(`A${rowNo}:H${rowNo}`);
+      const f = ws.getCell(`A${rowNo}`);
+      f.value = `Regular meetings: ${cleanCell(t.meetingSchedule)}`;
+      f.font = { name: FONT, size: 9, color: { argb: 'FF64748B' } };
+      f.alignment = { vertical: 'middle', horizontal: 'center' };
+
+      ws.pageSetup.printArea = `A1:H${rowNo}`;
+      return wb;
+    }
+
+    async function downloadAgendaExcel(btn) {
+      const label = btn ? btn.querySelector('span') : null;
+      const original = label ? label.innerText : '';
+      try {
+        if (btn) btn.disabled = true;
+        if (label) label.innerText = 'Preparing…';
+        const wb = await buildAgendaWorkbook();
+        const buffer = await wb.xlsx.writeBuffer();
+        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'OneWorld_TMC_Contest_Agenda_26Nov2026.xlsx';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(link.href), 4000);
+        showToast('📊 Excel agenda downloaded.');
+      } catch (e) {
+        console.error(e);
+        showToast('❌ Could not create the Excel file. Please check your connection and try again.');
+      } finally {
+        if (btn) btn.disabled = false;
+        if (label) label.innerText = original;
+      }
     }
 
     // --- 7. CALENDAR ICS & GENERAL HELPERS ---
