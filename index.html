@@ -885,7 +885,7 @@
         <input type="hidden" id="editContestantGroup" />
         <input type="hidden" id="contestantPhotoData" />
         <div class="flex items-center gap-3">
-          <div id="contestantPhotoFrame" class="w-24 h-24 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 flex-shrink-0 hidden"><img id="contestantPhotoPreview" alt="Photo preview" class="w-full h-full object-cover" /></div>
+          <div id="contestantPhotoFrame" class="w-24 h-24 rounded-full overflow-hidden border border-slate-200 bg-slate-100 flex-shrink-0 hidden"><img id="contestantPhotoPreview" alt="Photo preview" class="w-full h-full object-cover" /></div>
           <div class="flex-1">
             <label class="block font-bold text-slate-600 mb-1">Photo (optional)</label>
             <input type="file" accept="image/*" id="contestantPhotoInput" onchange="handlePhotoFileSelect(this, 'contestantPhotoData', 'contestantPhotoPreview')" class="w-full text-[11px]" />
@@ -1293,9 +1293,9 @@
 
     // Contestants per contest group (ordinal + role label computed at render time from array order)
     const CONTESTANT_GROUP_META = {
-      international: { roleLabel: 'Speaker', accent: 'tmMaroon' },
-      evaluation: { roleLabel: 'Evaluator', accent: 'tmNavy' },
-      topics: { roleLabel: 'Speaker', accent: 'amber-700' }
+      international: { roleLabel: 'Speaker', accent: 'tmMaroon', avatarBg: 'bg-tmMaroon', ring: 'ring-tmMaroon/30' },
+      evaluation: { roleLabel: 'Evaluator', accent: 'tmNavy', avatarBg: 'bg-tmNavy', ring: 'ring-tmNavy/30' },
+      topics: { roleLabel: 'Speaker', accent: 'amber-700', avatarBg: 'bg-amber-600', ring: 'ring-amber-400/50' }
     };
     const DEFAULT_CONTESTANTS = {
       international: [
@@ -2254,10 +2254,20 @@
 
         entries.forEach((c, idx) => {
           const li = document.createElement('li');
-          li.className = "p-2 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between gap-2";
-          const photoHtml = c.photo ? framedPhoto(c, 'w-6 h-6 rounded-full', c.name) : '';
+          li.className = "p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-3";
+          // Round avatar: uploaded photo (with saved face framing) or initials in the contest colour
+          const initials = (c.name || '').replace(/,.*$/, '').split(/\s+/).filter(Boolean).map(w => w[0]).join('').substring(0, 2).toUpperCase() || '?';
+          const avatarInner = c.photo
+            ? framedPhoto(c, 'w-12 h-12 rounded-full', c.name)
+            : `<div class="w-12 h-12 rounded-full ${meta.avatarBg} text-white flex items-center justify-center font-heading font-bold text-sm">${initials}</div>`;
+          const avatarHtml = isAdminMode
+            ? `<button type="button" onclick="openContestantModal('${group}','${c.id}')" class="relative flex-shrink-0 rounded-full ring-2 ${meta.ring} hover:opacity-90 transition" title="${c.photo ? 'Change photo' : 'Add photo'}">
+                 ${avatarInner}
+                 <span class="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-white border border-slate-200 shadow flex items-center justify-center text-[9px] text-tmNavy"><i class="fas fa-camera"></i></span>
+               </button>`
+            : `<div class="flex-shrink-0 rounded-full ring-2 ${meta.ring}">${avatarInner}</div>`;
           const adminBtns = isAdminMode ? `
-            <div class="flex items-center gap-0.5">
+            <div class="flex items-center gap-0.5 flex-shrink-0">
               <button onclick="moveContestantUp('${group}','${c.id}')" class="p-1 text-slate-400 hover:text-tmNavy" title="Move Up"><i class="fas fa-arrow-up text-[10px]"></i></button>
               <button onclick="moveContestantDown('${group}','${c.id}')" class="p-1 text-slate-400 hover:text-tmNavy" title="Move Down"><i class="fas fa-arrow-down text-[10px]"></i></button>
               <button onclick="openContestantModal('${group}','${c.id}')" class="p-1 text-tmNavy hover:text-tmMaroon" title="Edit"><i class="fas fa-edit text-[10px]"></i></button>
@@ -2265,11 +2275,12 @@
             </div>
           ` : '';
           li.innerHTML = `
-            <span class="flex items-center gap-1.5">${photoHtml}${idx + 1}. ${c.name}</span>
-            <span class="flex items-center gap-1.5">
-              <span class="text-[10px] text-${meta.accent} font-bold">${ordinal(idx + 1)} ${meta.roleLabel}</span>
-              ${adminBtns}
-            </span>
+            ${avatarHtml}
+            <div class="min-w-0 flex-1">
+              <div class="text-sm font-bold text-slate-900 leading-snug break-words">${idx + 1}. ${c.name}</div>
+              <div class="text-[11px] text-${meta.accent} font-bold">${ordinal(idx + 1)} ${meta.roleLabel}</div>
+            </div>
+            ${adminBtns}
           `;
           list.appendChild(li);
         });
