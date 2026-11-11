@@ -688,12 +688,19 @@
         <input type="hidden" id="editRoleId" />
         <input type="hidden" id="rolePhotoData" />
         <div class="flex items-center gap-3">
-          <img id="rolePhotoPreview" class="w-16 h-16 rounded-xl object-cover border border-slate-200 bg-slate-100 hidden" />
+          <div id="rolePhotoFrame" class="w-24 h-24 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 flex-shrink-0 hidden"><img id="rolePhotoPreview" alt="Photo preview" class="w-full h-full object-cover" /></div>
           <div class="flex-1">
             <label class="block font-bold text-slate-600 mb-1">Photo (optional)</label>
             <input type="file" accept="image/*" id="rolePhotoInput" onchange="handlePhotoFileSelect(this, 'rolePhotoData', 'rolePhotoPreview')" class="w-full text-[11px]" />
             <button type="button" onclick="clearPhotoField('rolePhotoData','rolePhotoPreview','rolePhotoInput')" class="text-[10px] text-rose-600 font-bold mt-1">Remove Photo</button>
           </div>
+        </div>
+        <div id="rolePhotoAdjust" class="hidden p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div class="font-bold text-slate-700 flex items-center gap-1.5"><i class="fas fa-crop-alt text-tmNavy"></i> Frame the face <span class="font-normal text-slate-500">(preview updates live)</span></div>
+          <label class="flex items-center gap-2"><span class="w-20 text-slate-600 font-semibold">Up / Down</span><input type="range" id="rolePhotoY" min="0" max="100" value="25" oninput="updatePhotoPreview('role')" class="flex-1 accent-[#004165]" /></label>
+          <label class="flex items-center gap-2"><span class="w-20 text-slate-600 font-semibold">Left / Right</span><input type="range" id="rolePhotoX" min="0" max="100" value="50" oninput="updatePhotoPreview('role')" class="flex-1 accent-[#004165]" /></label>
+          <label class="flex items-center gap-2"><span class="w-20 text-slate-600 font-semibold">Zoom</span><input type="range" id="rolePhotoZoom" min="100" max="250" value="100" oninput="updatePhotoPreview('role')" class="flex-1 accent-[#004165]" /></label>
+          <button type="button" onclick="resetPhotoFraming('role')" class="text-[10px] font-bold text-tmNavy">Reset framing</button>
         </div>
         <div>
           <label class="block font-bold text-slate-600 mb-1">Role Title (e.g. Official Timer)</label>
@@ -814,12 +821,19 @@
         <input type="hidden" id="editOfficerId" />
         <input type="hidden" id="officerPhotoData" />
         <div class="flex items-center gap-3">
-          <img id="officerPhotoPreview" class="w-16 h-16 rounded-xl object-cover border border-slate-200 bg-slate-100 hidden" />
+          <div id="officerPhotoFrame" class="w-24 h-24 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 flex-shrink-0 hidden"><img id="officerPhotoPreview" alt="Photo preview" class="w-full h-full object-cover" /></div>
           <div class="flex-1">
             <label class="block font-bold text-slate-600 mb-1">Photo (optional)</label>
             <input type="file" accept="image/*" id="officerPhotoInput" onchange="handlePhotoFileSelect(this, 'officerPhotoData', 'officerPhotoPreview')" class="w-full text-[11px]" />
             <button type="button" onclick="clearPhotoField('officerPhotoData','officerPhotoPreview','officerPhotoInput')" class="text-[10px] text-rose-600 font-bold mt-1">Remove Photo</button>
           </div>
+        </div>
+        <div id="officerPhotoAdjust" class="hidden p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div class="font-bold text-slate-700 flex items-center gap-1.5"><i class="fas fa-crop-alt text-tmNavy"></i> Frame the face <span class="font-normal text-slate-500">(preview updates live)</span></div>
+          <label class="flex items-center gap-2"><span class="w-20 text-slate-600 font-semibold">Up / Down</span><input type="range" id="officerPhotoY" min="0" max="100" value="25" oninput="updatePhotoPreview('officer')" class="flex-1 accent-[#004165]" /></label>
+          <label class="flex items-center gap-2"><span class="w-20 text-slate-600 font-semibold">Left / Right</span><input type="range" id="officerPhotoX" min="0" max="100" value="50" oninput="updatePhotoPreview('officer')" class="flex-1 accent-[#004165]" /></label>
+          <label class="flex items-center gap-2"><span class="w-20 text-slate-600 font-semibold">Zoom</span><input type="range" id="officerPhotoZoom" min="100" max="250" value="100" oninput="updatePhotoPreview('officer')" class="flex-1 accent-[#004165]" /></label>
+          <button type="button" onclick="resetPhotoFraming('officer')" class="text-[10px] font-bold text-tmNavy">Reset framing</button>
         </div>
         <div>
           <label class="block font-bold text-slate-600 mb-1">Badge / Abbreviation (e.g. VPE, Treasurer)</label>
@@ -871,12 +885,19 @@
         <input type="hidden" id="editContestantGroup" />
         <input type="hidden" id="contestantPhotoData" />
         <div class="flex items-center gap-3">
-          <img id="contestantPhotoPreview" class="w-16 h-16 rounded-xl object-cover border border-slate-200 bg-slate-100 hidden" />
+          <div id="contestantPhotoFrame" class="w-24 h-24 rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 flex-shrink-0 hidden"><img id="contestantPhotoPreview" alt="Photo preview" class="w-full h-full object-cover" /></div>
           <div class="flex-1">
             <label class="block font-bold text-slate-600 mb-1">Photo (optional)</label>
             <input type="file" accept="image/*" id="contestantPhotoInput" onchange="handlePhotoFileSelect(this, 'contestantPhotoData', 'contestantPhotoPreview')" class="w-full text-[11px]" />
             <button type="button" onclick="clearPhotoField('contestantPhotoData','contestantPhotoPreview','contestantPhotoInput')" class="text-[10px] text-rose-600 font-bold mt-1">Remove Photo</button>
           </div>
+        </div>
+        <div id="contestantPhotoAdjust" class="hidden p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div class="font-bold text-slate-700 flex items-center gap-1.5"><i class="fas fa-crop-alt text-tmNavy"></i> Frame the face <span class="font-normal text-slate-500">(preview updates live)</span></div>
+          <label class="flex items-center gap-2"><span class="w-20 text-slate-600 font-semibold">Up / Down</span><input type="range" id="contestantPhotoY" min="0" max="100" value="25" oninput="updatePhotoPreview('contestant')" class="flex-1 accent-[#004165]" /></label>
+          <label class="flex items-center gap-2"><span class="w-20 text-slate-600 font-semibold">Left / Right</span><input type="range" id="contestantPhotoX" min="0" max="100" value="50" oninput="updatePhotoPreview('contestant')" class="flex-1 accent-[#004165]" /></label>
+          <label class="flex items-center gap-2"><span class="w-20 text-slate-600 font-semibold">Zoom</span><input type="range" id="contestantPhotoZoom" min="100" max="250" value="100" oninput="updatePhotoPreview('contestant')" class="flex-1 accent-[#004165]" /></label>
+          <button type="button" onclick="resetPhotoFraming('contestant')" class="text-[10px] font-bold text-tmNavy">Reset framing</button>
         </div>
         <div>
           <label class="block font-bold text-slate-600 mb-1">Contestant Name</label>
@@ -1768,13 +1789,13 @@
         card.className = "bg-white rounded-3xl p-6 border border-slate-200 shadow-sm text-center relative hover:shadow-md transition flex flex-col justify-between";
 
         const avatarHtml = role.photo
-          ? `<img src="${role.photo}" class="w-20 h-20 mx-auto rounded-2xl object-cover shadow-md mb-3" />`
-          : `<div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-tr ${role.color || 'from-tmMaroon to-tmMaroon-light'} text-white flex items-center justify-center font-heading font-extrabold text-2xl shadow-md mb-3">${initials}</div>`;
+          ? `<div class="mx-auto mb-3 w-24 h-24 rounded-2xl shadow-md overflow-hidden">${framedPhoto(role, 'w-24 h-24 rounded-2xl', role.name)}</div>`
+          : `<div class="w-24 h-24 mx-auto rounded-2xl bg-gradient-to-tr ${role.color || 'from-tmMaroon to-tmMaroon-light'} text-white flex items-center justify-center font-heading font-extrabold text-2xl shadow-md mb-3">${initials}</div>`;
 
         card.innerHTML = `
           <div>
             ${isAdminMode ? `
-              <div class="absolute top-3 right-3 flex items-center gap-1 flex-wrap justify-end max-w-[120px]">
+              <div class="flex items-center justify-center gap-1 mb-3 pb-3 border-b border-slate-100">
                 <button onclick="moveRoleUp('${role.id}')" class="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs" title="Move Up"><i class="fas fa-arrow-up"></i></button>
                 <button onclick="moveRoleDown('${role.id}')" class="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs" title="Move Down"><i class="fas fa-arrow-down"></i></button>
                 <button onclick="openRolePlayerModal('${role.id}')" class="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs" title="Edit Role Player">
@@ -1820,7 +1841,9 @@
           document.getElementById('roleColor').value = r.color || 'from-tmMaroon to-tmMaroon-light';
           document.getElementById('roleDescription').value = r.desc || '';
           photoData.value = r.photo || '';
-          if (r.photo) { photoPreview.src = r.photo; photoPreview.classList.remove('hidden'); } else { photoPreview.classList.add('hidden'); }
+          if (r.photo) photoPreview.src = r.photo; else photoPreview.removeAttribute('src');
+          showPhotoEditor('role', !!r.photo);
+          setPhotoFramingInputs('role', r);
         }
       } else {
         title.innerText = "Add New Role Player";
@@ -1831,7 +1854,9 @@
         document.getElementById('roleColor').value = 'from-tmMaroon to-tmMaroon-light';
         document.getElementById('roleDescription').value = '';
         photoData.value = '';
-        photoPreview.classList.add('hidden');
+        photoPreview.removeAttribute('src');
+        showPhotoEditor('role', false);
+        setPhotoFramingInputs('role', {});
       }
       modal.classList.remove('hidden');
     }
@@ -1852,7 +1877,8 @@
         credentials: document.getElementById('roleCredentials').value,
         desc: document.getElementById('roleDescription').value,
         color: document.getElementById('roleColor').value || 'from-tmNavy to-tmNavy-light',
-        photo: document.getElementById('rolePhotoData').value || ''
+        photo: document.getElementById('rolePhotoData').value || '',
+        ...readPhotoFraming('role')
       };
 
       if (id) {
@@ -1888,6 +1914,48 @@
       saveRolesData(roles);
     }
 
+    // --- PHOTO FRAMING (face position + zoom) ---
+    // Stored per person as photoX / photoY (object-position %) and photoZoom (%).
+    // Default focuses the upper part of the photo, where faces usually are.
+    const PHOTO_DEFAULTS = { x: 50, y: 25, zoom: 100 };
+    function photoFraming(item) {
+      const n = (v, d) => (v === undefined || v === null || v === '' || isNaN(Number(v))) ? d : Number(v);
+      return { x: n(item && item.photoX, PHOTO_DEFAULTS.x), y: n(item && item.photoY, PHOTO_DEFAULTS.y), zoom: n(item && item.photoZoom, PHOTO_DEFAULTS.zoom) };
+    }
+    function photoStyle(item) {
+      const f = photoFraming(item);
+      return `object-position:${f.x}% ${f.y}%;transform:scale(${f.zoom / 100});transform-origin:${f.x}% ${f.y}%;`;
+    }
+    // Renders a cropped, framed photo inside a fixed-size box (sizeClasses = Tailwind w/h/rounded).
+    function framedPhoto(item, sizeClasses, alt) {
+      return `<div class="${sizeClasses} overflow-hidden bg-slate-100 flex-shrink-0"><img src="${item.photo}" alt="${alt || ''}" class="w-full h-full object-cover" style="${photoStyle(item)}" /></div>`;
+    }
+    function setPhotoFramingInputs(px, item) {
+      const f = photoFraming(item);
+      document.getElementById(px + 'PhotoX').value = f.x;
+      document.getElementById(px + 'PhotoY').value = f.y;
+      document.getElementById(px + 'PhotoZoom').value = f.zoom;
+      updatePhotoPreview(px);
+    }
+    function readPhotoFraming(px) {
+      return {
+        photoX: Number(document.getElementById(px + 'PhotoX').value),
+        photoY: Number(document.getElementById(px + 'PhotoY').value),
+        photoZoom: Number(document.getElementById(px + 'PhotoZoom').value)
+      };
+    }
+    function updatePhotoPreview(px) {
+      const img = document.getElementById(px + 'PhotoPreview');
+      if (img) img.setAttribute('style', photoStyle(readPhotoFraming(px)));
+    }
+    function resetPhotoFraming(px) { setPhotoFramingInputs(px, {}); }
+    function showPhotoEditor(px, show) {
+      const frame = document.getElementById(px + 'PhotoFrame');
+      const adjust = document.getElementById(px + 'PhotoAdjust');
+      if (frame) frame.classList.toggle('hidden', !show);
+      if (adjust) adjust.classList.toggle('hidden', !show);
+    }
+
     // --- SHARED PHOTO UPLOAD HELPER ---
     // Reads an <input type="file">, resizes the image to a max dimension via
     // an off-screen canvas, and stores the resulting base64 JPEG data URL into
@@ -1917,7 +1985,9 @@
           document.getElementById(hiddenFieldId).value = dataUrl;
           const preview = document.getElementById(previewImgId);
           preview.src = dataUrl;
-          preview.classList.remove('hidden');
+          const px = previewImgId.replace('PhotoPreview', '');
+          showPhotoEditor(px, true);
+          resetPhotoFraming(px); // new photo starts from the default framing
         };
         img.src = e.target.result;
       };
@@ -1927,8 +1997,8 @@
     function clearPhotoField(hiddenFieldId, previewImgId, inputId) {
       document.getElementById(hiddenFieldId).value = '';
       const preview = document.getElementById(previewImgId);
-      preview.classList.add('hidden');
-      preview.src = '';
+      preview.removeAttribute('src');
+      showPhotoEditor(previewImgId.replace('PhotoPreview', ''), false);
       const input = document.getElementById(inputId);
       if (input) input.value = '';
     }
@@ -2030,7 +2100,7 @@
           </div>
         ` : '';
 
-        const photoHtml = o.photo ? `<img src="${o.photo}" class="w-10 h-10 rounded-lg object-cover flex-shrink-0" />` : '';
+        const photoHtml = o.photo ? framedPhoto(o, 'w-10 h-10 rounded-lg', o.name) : '';
 
         if (o.highlight) {
           card.className = "p-3.5 rounded-xl border border-tmGold bg-amber-50/60 sm:col-span-2 flex items-center justify-between gap-3 flex-wrap";
@@ -2098,7 +2168,9 @@
           document.getElementById('officerWhatsapp').value = o.whatsapp || '';
           document.getElementById('officerHighlight').checked = !!o.highlight;
           photoData.value = o.photo || '';
-          if (o.photo) { photoPreview.src = o.photo; photoPreview.classList.remove('hidden'); } else { photoPreview.classList.add('hidden'); }
+          if (o.photo) photoPreview.src = o.photo; else photoPreview.removeAttribute('src');
+          showPhotoEditor('officer', !!o.photo);
+          setPhotoFramingInputs('officer', o);
         }
       } else {
         title.innerText = "Add New Officer";
@@ -2110,7 +2182,9 @@
         document.getElementById('officerWhatsapp').value = '';
         document.getElementById('officerHighlight').checked = false;
         photoData.value = '';
-        photoPreview.classList.add('hidden');
+        photoPreview.removeAttribute('src');
+        showPhotoEditor('officer', false);
+        setPhotoFramingInputs('officer', {});
       }
       modal.classList.remove('hidden');
     }
@@ -2129,7 +2203,8 @@
         color: document.getElementById('officerColor').value,
         whatsapp: document.getElementById('officerWhatsapp').value,
         highlight: document.getElementById('officerHighlight').checked,
-        photo: document.getElementById('officerPhotoData').value || ''
+        photo: document.getElementById('officerPhotoData').value || '',
+        ...readPhotoFraming('officer')
       };
       if (id) {
         const idx = officers.findIndex(x => x.id === id);
@@ -2180,7 +2255,7 @@
         entries.forEach((c, idx) => {
           const li = document.createElement('li');
           li.className = "p-2 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between gap-2";
-          const photoHtml = c.photo ? `<img src="${c.photo}" class="w-6 h-6 rounded-full object-cover flex-shrink-0" />` : '';
+          const photoHtml = c.photo ? framedPhoto(c, 'w-6 h-6 rounded-full', c.name) : '';
           const adminBtns = isAdminMode ? `
             <div class="flex items-center gap-0.5">
               <button onclick="moveContestantUp('${group}','${c.id}')" class="p-1 text-slate-400 hover:text-tmNavy" title="Move Up"><i class="fas fa-arrow-up text-[10px]"></i></button>
@@ -2219,14 +2294,18 @@
           document.getElementById('editContestantId').value = c.id;
           document.getElementById('contestantName').value = c.name;
           photoData.value = c.photo || '';
-          if (c.photo) { photoPreview.src = c.photo; photoPreview.classList.remove('hidden'); } else { photoPreview.classList.add('hidden'); }
+          if (c.photo) photoPreview.src = c.photo; else photoPreview.removeAttribute('src');
+          showPhotoEditor('contestant', !!c.photo);
+          setPhotoFramingInputs('contestant', c);
         }
       } else {
         title.innerText = "Add New Contestant";
         document.getElementById('editContestantId').value = '';
         document.getElementById('contestantName').value = '';
         photoData.value = '';
-        photoPreview.classList.add('hidden');
+        photoPreview.removeAttribute('src');
+        showPhotoEditor('contestant', false);
+        setPhotoFramingInputs('contestant', {});
       }
       modal.classList.remove('hidden');
     }
@@ -2242,7 +2321,8 @@
       const newContestant = {
         id: id || 'c_' + Date.now(),
         name: document.getElementById('contestantName').value,
-        photo: document.getElementById('contestantPhotoData').value || ''
+        photo: document.getElementById('contestantPhotoData').value || '',
+        ...readPhotoFraming('contestant')
       };
       if (id) {
         const idx = data[group].findIndex(x => x.id === id);
