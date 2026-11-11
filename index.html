@@ -56,6 +56,9 @@
     .text-glow {
       text-shadow: 0 2px 10px rgba(242, 223, 116, 0.4);
     }
+    /* Keep section headings clear of the sticky header when jumping via nav links */
+    section[id] { scroll-margin-top: 4.5rem; }
+    @media (min-width: 640px) { section[id] { scroll-margin-top: 5.5rem; } }
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -116,17 +119,18 @@
 
   <!-- MAIN NAVIGATION -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
       <!-- Club Brand -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-12 h-12 rounded-xl bg-tmNavy flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
-          <i class="fas fa-bullhorn text-tmGold text-xl"></i>
+      <a href="#" class="flex items-center gap-2.5 sm:gap-3 group min-w-0">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-tmNavy flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform flex-shrink-0">
+          <i class="fas fa-bullhorn text-tmGold text-lg sm:text-xl"></i>
         </div>
-        <div>
-          <div class="font-heading font-extrabold text-lg sm:text-xl text-tmNavy tracking-tight leading-tight">
+        <div class="min-w-0">
+          <div class="font-heading font-extrabold text-sm sm:text-xl text-tmNavy tracking-tight leading-tight">
             ONEWORLD <span class="text-tmMaroon">TOASTMASTERS</span>
           </div>
-          <div class="text-[11px] font-medium text-slate-500 flex items-center gap-1.5 flex-wrap">
+          <div class="sm:hidden text-[10px] font-medium text-slate-500 truncate">Area W4 • District 51</div>
+          <div class="hidden sm:flex text-[11px] font-medium text-slate-500 items-center gap-1.5 flex-wrap">
             <span>Club #01589773</span>
             <span>•</span>
             <span>Chartered Jan 2011</span>
@@ -146,12 +150,12 @@
       </nav>
 
       <!-- Action Button: Add to Calendar -->
-      <div class="flex items-center gap-3">
-        <button onclick="downloadICS()" class="bg-gradient-to-r from-tmMaroon to-tmMaroon-light hover:from-tmMaroon-dark hover:to-tmMaroon text-white font-heading font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md hover:shadow-lg transition flex items-center gap-2">
+      <div class="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
+        <button onclick="downloadICS()" aria-label="Add to Calendar" class="bg-gradient-to-r from-tmMaroon to-tmMaroon-light hover:from-tmMaroon-dark hover:to-tmMaroon text-white font-heading font-bold text-xs sm:text-sm px-3 sm:px-4 py-2.5 rounded-xl shadow-md hover:shadow-lg transition flex items-center gap-2">
           <i class="far fa-calendar-check text-tmGold"></i>
-          <span>Add to Calendar</span>
+          <span class="hidden sm:inline">Add to Calendar</span>
         </button>
-        <button id="mobileMenuBtn" aria-label="Toggle Menu" class="lg:hidden text-slate-700 hover:text-tmNavy p-2 text-xl focus:outline-none">
+        <button id="mobileMenuBtn" aria-label="Toggle Menu" aria-expanded="false" class="lg:hidden text-slate-700 hover:text-tmNavy p-2 text-xl focus:outline-none">
           <i class="fas fa-bars"></i>
         </button>
       </div>
@@ -227,7 +231,7 @@
           <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-3xl shadow-2xl space-y-6">
             <div class="text-center">
               <span class="text-[11px] uppercase font-extrabold tracking-widest text-tmGold">Official Countdown</span>
-              <h3 class="font-heading font-bold text-2xl mt-0.5 text-white">Contest Begins In</h3>
+              <h3 id="countdownHeading" class="font-heading font-bold text-2xl mt-0.5 text-white">Contest Begins In</h3>
             </div>
 
             <!-- Countdown Timer Grid -->
@@ -284,40 +288,38 @@
 
       <!-- TOASTMASTERS TIMING GUIDE LEGEND -->
       <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm mb-8">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
-          <div class="flex items-center gap-2">
-            <i class="fas fa-stopwatch text-tmMaroon text-base"></i>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2.5 mb-3">
+          <div class="flex items-start sm:items-center gap-2">
+            <i class="fas fa-stopwatch text-tmMaroon text-base mt-0.5 sm:mt-0"></i>
             <span class="font-heading font-bold text-xs sm:text-sm text-slate-900 uppercase tracking-wide">Official Timer Signals & Disqualification Rules</span>
           </div>
-          <span class="text-[11px] font-semibold text-slate-500">Timer: Jamil</span>
+          <div class="flex items-center gap-1.5 flex-wrap text-[11px] font-semibold text-slate-600 pl-6 sm:pl-0">
+            <span class="px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200">Timer 1: <span id="timer1Name" class="text-slate-900">Jamil</span></span>
+            <span class="px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200">Timer 2: <span id="timer2Name" class="text-slate-900">TBA</span></span>
+            <button id="editTimersBtn" onclick="openTimersModal()" class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200 transition" title="Edit timers">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
-          <div class="flex items-center gap-2.5 p-2 rounded-xl bg-emerald-50 border border-emerald-200">
-            <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 flex-shrink-0 shadow-sm"></span>
-            <div>
-              <span class="font-bold text-emerald-950 block">🟢 Green Light</span>
-              <span class="text-[10px] text-emerald-800">Minimum Qualifying Time</span>
-            </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
+            <span class="font-bold text-emerald-950 block">🟢 Green Light</span>
+            <span class="text-[11px] text-emerald-800">Minimum Qualifying Time</span>
           </div>
-          <div class="flex items-center gap-2.5 p-2 rounded-xl bg-amber-50 border border-amber-200">
-            <span class="w-3.5 h-3.5 rounded-full bg-amber-400 flex-shrink-0 shadow-sm"></span>
-            <div>
-              <span class="font-bold text-amber-950 block">🟡 Amber / Yellow</span>
-              <span class="text-[10px] text-amber-800">Mid-point Target Warning</span>
-            </div>
+          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200">
+            <span class="font-bold text-amber-950 block">🟡 Amber / Yellow</span>
+            <span class="text-[11px] text-amber-800">Mid-point Target Warning</span>
           </div>
-          <div class="flex items-center gap-2.5 p-2 rounded-xl bg-rose-50 border border-rose-200">
-            <span class="w-3.5 h-3.5 rounded-full bg-rose-500 flex-shrink-0 shadow-sm"></span>
-            <div>
-              <span class="font-bold text-rose-950 block">🔴 Red Light</span>
-              <span class="text-[10px] text-rose-800">Maximum Allocated Limit</span>
-            </div>
+          <div class="p-2.5 rounded-xl bg-rose-50 border border-rose-200">
+            <span class="font-bold text-rose-950 block">🔴 Red Light</span>
+            <span class="text-[11px] text-rose-800">Maximum Allocated Limit</span>
           </div>
-          <div class="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50 border border-slate-200">
-            <i class="fas fa-exclamation-triangle text-rose-600 text-sm flex-shrink-0"></i>
+          <div class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+            <i class="fas fa-exclamation-triangle text-rose-600 text-sm flex-shrink-0 mt-0.5"></i>
             <div>
               <span class="font-bold text-slate-900 block">Grace Period</span>
-              <span class="text-[10px] text-slate-600">30s buffer (+/-) before DQ</span>
+              <span class="text-[11px] text-slate-600 block">30s buffer (+/-) before DQ</span>
+              <span class="text-[11px] text-rose-700 font-semibold block mt-1">No other signal will be shown for exceeding the time.</span>
             </div>
           </div>
         </div>
@@ -773,6 +775,28 @@
     </div>
   </div>
 
+  <!-- ADMIN EDIT TIMERS MODAL -->
+  <div id="timersModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm hidden">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
+      <button onclick="closeTimersModal()" aria-label="Close" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">✕</button>
+      <h3 class="font-heading font-bold text-lg text-slate-900 mb-4">Edit Official Timers</h3>
+      <form onsubmit="handleSaveTimers(event)" class="space-y-3 text-xs">
+        <div>
+          <label for="txtTimer1" class="block font-bold text-slate-600 mb-1">Timer 1</label>
+          <input type="text" id="txtTimer1" class="w-full p-2.5 border rounded-xl" placeholder="e.g. Jamil" />
+        </div>
+        <div>
+          <label for="txtTimer2" class="block font-bold text-slate-600 mb-1">Timer 2</label>
+          <input type="text" id="txtTimer2" class="w-full p-2.5 border rounded-xl" placeholder="e.g. TBA" />
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeTimersModal()" class="px-4 py-2 bg-slate-100 rounded-xl">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-tmNavy text-white rounded-xl font-bold">Save Timers</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- ADMIN EDIT OFFICER MODAL -->
   <div id="officerModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm hidden">
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
@@ -1219,7 +1243,9 @@
       heroDesc: 'International Speech • Speech Evaluation • Table Topics. Join us for an inspiring evening as our contestants demonstrate speech excellence and compete to advance to the Area W4 Contests.',
       clubMission: '"We provide a supportive and positive learning experience in which members are empowered to develop communication and leadership skills, resulting in greater self-confidence and personal growth."',
       meetingSchedule: 'Every 2nd & 4th Thursday of the month • 7:45 PM – 9:45 PM (MYT)',
-      nextMeeting: 'Next Regular Meeting: 10 December 2026'
+      nextMeeting: 'Next Regular Meeting: 10 December 2026',
+      timer1: 'Jamil',
+      timer2: 'TBA'
     };
 
     // Executive Committee Officers
@@ -1282,6 +1308,16 @@
       }
     }
 
+    // --- SAFE STORAGE WRAPPER ---
+    // localStorage can throw (private browsing, blocked site data). Without this
+    // guard one error would stop the agenda, role players & officers rendering.
+    const store = {
+      get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+      set(k, v) { try { localStorage.setItem(k, v); } catch (e) { showToast('⚠️ Could not save: browser storage is blocked or full.'); } },
+      remove(k) { try { localStorage.removeItem(k); } catch (e) {} }
+    };
+    function safeParse(str, fallback) { try { return str ? JSON.parse(str) : fallback; } catch (e) { return fallback; } }
+
     // --- 2. LOCALSTORAGE STATE GETTERS & SETTERS ---
     let isAdminMode = false;
     let currentAgendaFilter = 'all';
@@ -1308,50 +1344,50 @@
     }
 
     function getRolesData() {
-      const data = localStorage.getItem('oneworld_roles_data');
+      const data = store.get('oneworld_roles_data');
       // Deep-clone the default so edits never mutate the DEFAULT_ROLES constant itself
       // (otherwise "Reset Defaults" would be reverting to an already-mutated default).
-      return data ? JSON.parse(data) : JSON.parse(JSON.stringify(DEFAULT_ROLES));
+      return safeParse(data, null) || JSON.parse(JSON.stringify(DEFAULT_ROLES));
     }
     function saveRolesData(data) {
-      localStorage.setItem('oneworld_roles_data', JSON.stringify(data));
+      store.set('oneworld_roles_data', JSON.stringify(data));
       renderRolePlayers();
     }
 
     function getAgendaData() {
-      const data = localStorage.getItem('oneworld_agenda_data_v2');
-      return data ? JSON.parse(data) : JSON.parse(JSON.stringify(DEFAULT_AGENDA));
+      const data = store.get('oneworld_agenda_data_v2');
+      return safeParse(data, null) || JSON.parse(JSON.stringify(DEFAULT_AGENDA));
     }
     function saveAgendaData(data) {
-      localStorage.setItem('oneworld_agenda_data_v2', JSON.stringify(data));
+      store.set('oneworld_agenda_data_v2', JSON.stringify(data));
       renderAgenda();
       renderExcelTable();
     }
 
     function getSiteText() {
-      const data = localStorage.getItem('oneworld_site_text');
-      return data ? { ...DEFAULT_SITE_TEXT, ...JSON.parse(data) } : { ...DEFAULT_SITE_TEXT };
+      const data = store.get('oneworld_site_text');
+      return { ...DEFAULT_SITE_TEXT, ...(safeParse(data, null) || {}) };
     }
     function saveSiteText(data) {
-      localStorage.setItem('oneworld_site_text', JSON.stringify(data));
+      store.set('oneworld_site_text', JSON.stringify(data));
       renderSiteText();
     }
 
     function getOfficersData() {
-      const data = localStorage.getItem('oneworld_officers_data');
-      return data ? JSON.parse(data) : JSON.parse(JSON.stringify(DEFAULT_OFFICERS));
+      const data = store.get('oneworld_officers_data');
+      return safeParse(data, null) || JSON.parse(JSON.stringify(DEFAULT_OFFICERS));
     }
     function saveOfficersData(data) {
-      localStorage.setItem('oneworld_officers_data', JSON.stringify(data));
+      store.set('oneworld_officers_data', JSON.stringify(data));
       renderOfficers();
     }
 
     function getContestantsData() {
-      const data = localStorage.getItem('oneworld_contestants_data');
-      return data ? JSON.parse(data) : JSON.parse(JSON.stringify(DEFAULT_CONTESTANTS));
+      const data = store.get('oneworld_contestants_data');
+      return safeParse(data, null) || JSON.parse(JSON.stringify(DEFAULT_CONTESTANTS));
     }
     function saveContestantsData(data) {
-      localStorage.setItem('oneworld_contestants_data', JSON.stringify(data));
+      store.set('oneworld_contestants_data', JSON.stringify(data));
       renderContestants();
     }
 
@@ -1375,6 +1411,11 @@
       const thAdmin = document.getElementById('thAdminAction');
       const thAdminSub = document.getElementById('thAdminActionSub');
       const contestantAddBtns = ['international', 'evaluation', 'topics'].map(g => document.getElementById('addContestantBtn-' + g));
+      const editTimersBtn = document.getElementById('editTimersBtn');
+      if (editTimersBtn) {
+        editTimersBtn.classList.toggle('hidden', isAdminMode === false);
+        editTimersBtn.classList.toggle('inline-flex', isAdminMode === true);
+      }
 
       if (isAdminMode) {
         banner.classList.remove('hidden');
@@ -1532,7 +1573,8 @@
             <div class="flex items-start sm:items-center gap-3.5">
               <div class="w-24 sm:w-28 py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 flex flex-col items-center justify-center text-tmNavy font-bold text-xs flex-shrink-0 text-center shadow-inner">
                 <div class="text-[11px] font-extrabold tracking-tight text-slate-800">
-                  ${startTime} ${endTime ? `<span class="text-slate-400 font-normal">→</span> ${endTime}` : ''}
+                  <span class="block whitespace-nowrap">${startTime}</span>
+                  ${endTime ? `<span class="block whitespace-nowrap"><span class="text-slate-400 font-normal">→</span> ${endTime}</span>` : ''}
                 </div>
                 <span class="text-[10px] text-tmMaroon font-semibold mt-0.5">${duration}</span>
               </div>
@@ -1889,6 +1931,27 @@
       set('clubMissionText', t.clubMission);
       set('meetingScheduleText', t.meetingSchedule);
       set('nextMeetingText', t.nextMeeting);
+      set('timer1Name', t.timer1 || 'TBA');
+      set('timer2Name', t.timer2 || 'TBA');
+    }
+
+    function openTimersModal() {
+      const t = getSiteText();
+      document.getElementById('txtTimer1').value = t.timer1 || '';
+      document.getElementById('txtTimer2').value = t.timer2 || '';
+      document.getElementById('timersModal').classList.remove('hidden');
+    }
+    function closeTimersModal() {
+      document.getElementById('timersModal').classList.add('hidden');
+    }
+    function handleSaveTimers(e) {
+      e.preventDefault();
+      const t = getSiteText();
+      t.timer1 = document.getElementById('txtTimer1').value.trim();
+      t.timer2 = document.getElementById('txtTimer2').value.trim();
+      saveSiteText(t);
+      closeTimersModal();
+      showToast("⏱️ Timers updated!");
     }
 
     function openSiteTextModal() {
@@ -1908,6 +1971,7 @@
     function handleSaveSiteText(e) {
       e.preventDefault();
       const newText = {
+        ...getSiteText(),
         heroBadge: document.getElementById('txtHeroBadge').value,
         heroTitle1: document.getElementById('txtHeroTitle1').value,
         heroTitle2: document.getElementById('txtHeroTitle2').value,
@@ -2221,11 +2285,11 @@
     }
 
     function resetToClubDefaults() {
-      localStorage.removeItem('oneworld_roles_data');
-      localStorage.removeItem('oneworld_agenda_data_v2');
-      localStorage.removeItem('oneworld_site_text');
-      localStorage.removeItem('oneworld_officers_data');
-      localStorage.removeItem('oneworld_contestants_data');
+      store.remove('oneworld_roles_data');
+      store.remove('oneworld_agenda_data_v2');
+      store.remove('oneworld_site_text');
+      store.remove('oneworld_officers_data');
+      store.remove('oneworld_contestants_data');
       renderRolePlayers();
       renderAgenda();
       renderExcelTable();
@@ -2240,7 +2304,12 @@
     function updateCountdown() {
       const now = new Date().getTime();
       const difference = targetDate - now;
-      if (difference <= 0) return;
+      if (difference <= 0) {
+        ['days', 'hours', 'minutes', 'seconds'].forEach(id => { document.getElementById(id).innerText = '00'; });
+        const heading = document.getElementById('countdownHeading');
+        if (heading) heading.innerText = now < targetDate + 130 * 60 * 1000 ? 'Contest Is Live Now!' : 'Thank You for Joining!';
+        return;
+      }
       document.getElementById('days').innerText = String(Math.floor(difference / (1000 * 60 * 60 * 24))).padStart(2, '0');
       document.getElementById('hours').innerText = String(Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
       document.getElementById('minutes').innerText = String(Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
@@ -2274,14 +2343,27 @@
     }
 
     function copyEventShareLink() {
-      const dummyUrl = window.location.href;
-      const tempInput = document.createElement('input');
-      tempInput.value = dummyUrl;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempInput);
-      showToast("🔗 Event link copied to clipboard!");
+      // Never leak the organizer key when sharing the public event link
+      const url = new URL(window.location.href);
+      url.searchParams.delete('organizer');
+      url.hash = '';
+      const shareUrl = url.toString();
+      const fallbackCopy = () => {
+        const tempInput = document.createElement('input');
+        tempInput.value = shareUrl;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        showToast("🔗 Event link copied to clipboard!");
+      };
+      if (navigator.share && window.matchMedia('(max-width: 767px)').matches) {
+        navigator.share({ title: document.title, url: shareUrl }).catch(() => {});
+      } else if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(shareUrl).then(() => showToast("🔗 Event link copied to clipboard!"), fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
     }
 
     function showToast(msg) {
@@ -2295,9 +2377,15 @@
     // Mobile nav toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-    document.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    mobileMenuBtn.addEventListener('click', () => {
+      const nowHidden = mobileMenu.classList.toggle('hidden');
+      mobileMenuBtn.setAttribute('aria-expanded', String(!nowHidden));
+    });
+    mobileMenu.querySelectorAll('a, button').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      });
     });
 
     // Boot App
@@ -2308,6 +2396,8 @@
       renderContestants();
       renderAgenda();
       renderExcelTable();
+      // The 8-column sheet needs sideways scrolling on phones; start them on the cards view
+      if (window.matchMedia('(max-width: 639px)').matches) setAgendaView('cards');
       checkOrganizerLinkAccess();
     };
   </script>
