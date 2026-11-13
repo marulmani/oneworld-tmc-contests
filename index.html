@@ -97,8 +97,8 @@
 </head>
 <body class="bg-[#F8FAFC] text-slate-800 font-sans antialiased selection:bg-tmGold selection:text-tmNavy-dark">
 
-  <!-- TOP HOSPITALITY & ADMIN SWITCH BAR -->
-  <div class="bg-tmMaroon text-white text-xs sm:text-sm py-2 px-4 shadow-sm relative z-50">
+  <!-- ORGANIZER BAR (only shown when the page is opened with the organizer link) -->
+  <div id="organizerBar" class="hidden bg-tmMaroon text-white text-xs sm:text-sm py-2 px-4 shadow-sm relative z-50">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-end gap-2">
       <div class="flex items-center gap-3">
         <!-- Admin Mode Toggle Button -->
@@ -110,10 +110,6 @@
         >
           <i class="fas fa-sliders-h text-tmGold"></i>
           <span id="adminToggleText">Organizer Edit Mode: OFF</span>
-        </button>
-
-        <button onclick="copyEventShareLink()" class="hover:text-tmGold transition flex items-center gap-1 font-semibold text-xs">
-          <i class="fas fa-share-alt"></i> Share
         </button>
       </div>
     </div>
@@ -183,13 +179,13 @@
     </div>
 
     <!-- Mobile Dropdown Menu -->
-    <div id="mobileMenu" class="hidden lg:hidden bg-white border-t border-slate-200 px-6 py-5 shadow-xl space-y-3 text-sm">
-      <a href="#about" class="block font-medium text-slate-700 hover:text-tmMaroon mobile-link">About Contest</a>
-      <a href="#agenda" class="block font-medium text-slate-700 hover:text-tmMaroon mobile-link">Program Agenda</a>
-      <a href="#roleplayers" class="block font-medium text-slate-700 hover:text-tmMaroon mobile-link">Role Players</a>
-      <a href="#contestants" class="block font-medium text-slate-700 hover:text-tmMaroon mobile-link">Contestants</a>
-      <a href="#clubinfo" class="block font-medium text-slate-700 hover:text-tmMaroon mobile-link">Club Info</a>
-      <button onclick="downloadICS()" class="w-full text-center bg-tmMaroon text-white py-2.5 rounded-lg font-bold">Add to Calendar</button>
+    <div id="mobileMenu" class="hidden lg:hidden bg-white border-t border-slate-200 px-6 py-4 shadow-xl space-y-1 text-sm">
+      <a href="#about" class="block py-2.5 font-medium text-slate-700 hover:text-tmMaroon mobile-link">About</a>
+      <a href="#agenda" class="block py-2.5 font-medium text-slate-700 hover:text-tmMaroon mobile-link">Program Agenda</a>
+      <a href="#roleplayers" class="block py-2.5 font-medium text-slate-700 hover:text-tmMaroon mobile-link">Role Players</a>
+      <a href="#contestants" class="block py-2.5 font-medium text-slate-700 hover:text-tmMaroon mobile-link">Contestants</a>
+      <a href="#clubinfo" class="block py-2.5 font-medium text-slate-700 hover:text-tmMaroon mobile-link">Club Info</a>
+      <button onclick="downloadICS()" class="w-full text-center bg-tmMaroon text-white py-2.5 rounded-lg font-bold !mt-3">Add to Calendar</button>
     </div>
   </header>
 
@@ -233,14 +229,18 @@
           </div>
 
           <!-- CTA Buttons -->
-          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-2">
-            <a href="#agenda" class="w-full sm:w-auto px-7 py-3.5 bg-tmGold hover:bg-tmGold-dark text-tmNavy-dark font-heading font-extrabold text-sm rounded-xl shadow-xl transition transform hover:-translate-y-0.5 text-center flex items-center justify-center gap-2">
+          <div class="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center lg:justify-start gap-3 pt-2 whitespace-nowrap">
+            <a href="#agenda" class="w-full sm:w-auto px-5 py-3.5 bg-tmGold hover:bg-tmGold-dark text-tmNavy-dark font-heading font-extrabold text-sm rounded-xl shadow-xl transition transform hover:-translate-y-0.5 text-center flex items-center justify-center gap-2">
               <i class="fas fa-list-ol"></i>
               <span>View Contest Agenda</span>
             </a>
-            <button onclick="downloadICS()" class="w-full sm:w-auto px-6 py-3.5 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-heading font-semibold text-sm rounded-xl transition text-center flex items-center justify-center gap-2">
+            <button onclick="downloadICS()" class="w-full sm:w-auto px-5 py-3.5 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-heading font-semibold text-sm rounded-xl transition text-center flex items-center justify-center gap-2">
               <i class="far fa-calendar-plus text-tmGold"></i>
-              <span>Add to Calendar (.ics)</span>
+              <span>Add to Calendar</span>
+            </button>
+            <button onclick="copyEventShareLink()" class="w-full sm:w-auto px-5 py-3.5 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-heading font-semibold text-sm rounded-xl transition text-center flex items-center justify-center gap-2">
+              <i class="fas fa-share-alt text-tmGold"></i>
+              <span>Share Event</span>
             </button>
           </div>
         </div>
@@ -250,7 +250,7 @@
           <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-6 rounded-3xl shadow-2xl space-y-6">
             <div class="text-center">
               <span class="text-[11px] uppercase font-extrabold tracking-widest text-tmGold">Official Countdown</span>
-              <h3 id="countdownHeading" class="font-heading font-bold text-2xl mt-0.5 text-white">Contest Begins In</h3>
+              <h2 id="countdownHeading" class="font-heading font-bold text-2xl mt-0.5 text-white">Contest Begins In</h2>
             </div>
 
             <!-- Countdown Timer Grid -->
@@ -543,7 +543,7 @@
             <span>Venue</span>
           </h3>
           <div class="leading-relaxed">OneWorld Toastmasters Club<br />Plaza Usahawan, 2-2, Jalan Danau Niaga 1, Jalan Genting Kelang, 53100 Kuala Lumpur, Federal Territory of Kuala Lumpur</div>
-          <a href="https://maps.app.goo.gl/U7eXTWFiQYffsyGA7" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-tmNavy font-bold pt-1 hover:text-tmMaroon transition">
+          <a href="https://maps.app.goo.gl/U7eXTWFiQYffsyGA7" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-tmNavy font-bold py-1.5 hover:text-tmMaroon transition">
             <i class="fas fa-location-arrow"></i> View on Google Maps
           </a>
         </div>
@@ -889,12 +889,15 @@
           </p>
           <p class="text-[11px] font-heading font-bold tracking-widest text-tmGold uppercase mt-1">Where Leaders Are Made</p>
         </div>
-        <div class="flex flex-wrap justify-center items-center gap-x-5 gap-y-2 text-xs font-semibold">
-          <a href="#about" class="hover:text-tmGold transition">About</a>
-          <a href="#agenda" class="hover:text-tmGold transition">Agenda</a>
-          <a href="#roleplayers" class="hover:text-tmGold transition">Role Players</a>
-          <a href="#contestants" class="hover:text-tmGold transition">Contestants</a>
-          <a href="#clubinfo" class="hover:text-tmGold transition">Club Info</a>
+        <div class="flex flex-wrap justify-center items-center gap-x-5 gap-y-1 text-xs font-semibold">
+          <a href="#about" class="py-2 hover:text-tmGold transition">About</a>
+          <a href="#agenda" class="py-2 hover:text-tmGold transition">Program Agenda</a>
+          <a href="#roleplayers" class="py-2 hover:text-tmGold transition">Role Players</a>
+          <a href="#contestants" class="py-2 hover:text-tmGold transition">Contestants</a>
+          <a href="#clubinfo" class="py-2 hover:text-tmGold transition">Club Info</a>
+          <button onclick="copyEventShareLink()" class="py-1.5 px-3 rounded-full border border-white/25 hover:bg-white/10 hover:text-tmGold transition flex items-center gap-1.5">
+            <i class="fas fa-share-alt"></i> Share Event
+          </button>
         </div>
       </div>
       <div class="text-[11px] leading-relaxed text-slate-300 text-center border-t border-white/10 pt-4 space-y-2 max-w-4xl mx-auto">
@@ -1034,7 +1037,7 @@
         r: '3',
         program: 'Welcoming speech by Contest Chair',
         details: 'Introduction of contest dignitaries & welcome address',
-        rolePlayer: 'Gladys DTM',
+        rolePlayer: 'Gladys Choo, DTM',
         category: 'general'
       },
       {
@@ -1226,7 +1229,7 @@
         r: '10',
         program: 'Results & awards presentation',
         details: 'Presentation of trophies for IS, Evaluation & TT winners',
-        rolePlayer: 'Gladys DTM / Chief Judge',
+        rolePlayer: 'Gladys Choo, DTM / Chief Judge',
         category: 'general'
       },
       {
@@ -1307,6 +1310,8 @@
     function checkOrganizerLinkAccess() {
       const params = new URLSearchParams(window.location.search);
       if (params.get('organizer') === ADMIN_LINK_KEY) {
+        const bar = document.getElementById('organizerBar');
+        if (bar) bar.classList.remove('hidden');
         const btn = document.getElementById('adminToggleBtn');
         if (btn) {
           btn.classList.remove('hidden');
@@ -2759,7 +2764,7 @@
         "DTEND:20261126T134000Z",
         "END:VEVENT",
         "END:VCALENDAR"
-      ].join("\r\n");
+      ].map(line => line.length <= 75 ? line : line.match(/.{1,73}/g).join("\r\n ")).join("\r\n") + "\r\n";
       const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
@@ -2830,6 +2835,12 @@
     });
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') allModals().forEach(modal => modal.classList.add('hidden'));
+    });
+
+    document.querySelectorAll('[id$="Modal"] label').forEach(label => {
+      if (label.htmlFor || label.querySelector('input, select, textarea')) return;
+      const field = label.nextElementSibling;
+      if (field && field.id && /^(INPUT|SELECT|TEXTAREA)$/.test(field.tagName)) label.htmlFor = field.id;
     });
 
     // Highlight the nav link of the section currently on screen
