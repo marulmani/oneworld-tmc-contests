@@ -758,20 +758,6 @@
           </div>
         </div>
 
-        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-          <div class="font-bold text-slate-700 uppercase text-[10px] tracking-wide">Official Timers (printed on the Excel agenda)</div>
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <label for="txtTimer1" class="block font-bold text-slate-600 mb-1">Timer 1</label>
-              <input type="text" id="txtTimer1" class="w-full p-2.5 border rounded-xl" placeholder="e.g. Jamil" />
-            </div>
-            <div>
-              <label for="txtTimer2" class="block font-bold text-slate-600 mb-1">Timer 2</label>
-              <input type="text" id="txtTimer2" class="w-full p-2.5 border rounded-xl" placeholder="e.g. TBA" />
-            </div>
-          </div>
-        </div>
-
         <div class="flex justify-end gap-2 pt-2">
           <button type="button" onclick="closeSiteTextModal()" class="px-4 py-2 bg-slate-100 rounded-xl">Cancel</button>
           <button type="submit" class="px-5 py-2 bg-tmNavy text-white rounded-xl font-bold">Save Text</button>
@@ -1262,9 +1248,7 @@
       heroDesc: 'International Speech • Speech Evaluation • Table Topics. Join us for an inspiring evening as our contestants demonstrate speech excellence and compete to advance to the Area W4 Contests.',
       clubMission: '"We provide a supportive and positive learning experience in which members are empowered to develop communication and leadership skills, resulting in greater self-confidence and personal growth."',
       meetingSchedule: 'Every 2nd & 4th Thursday of the month • 7:45 PM – 9:45 PM (MYT)',
-      nextMeeting: 'Next Regular Meeting: 10 December 2026',
-      timer1: 'Jamil',
-      timer2: 'TBA'
+      nextMeeting: 'Next Regular Meeting: 10 December 2026'
     };
 
     // Executive Committee Officers
@@ -2050,8 +2034,6 @@
       document.getElementById('txtClubMission').value = t.clubMission;
       document.getElementById('txtMeetingSchedule').value = t.meetingSchedule;
       document.getElementById('txtNextMeeting').value = t.nextMeeting;
-      document.getElementById('txtTimer1').value = t.timer1 || '';
-      document.getElementById('txtTimer2').value = t.timer2 || '';
       document.getElementById('siteTextModal').classList.remove('hidden');
     }
     function closeSiteTextModal() {
@@ -2067,9 +2049,7 @@
         heroDesc: document.getElementById('txtHeroDesc').value,
         clubMission: document.getElementById('txtClubMission').value,
         meetingSchedule: document.getElementById('txtMeetingSchedule').value,
-        nextMeeting: document.getElementById('txtNextMeeting').value,
-        timer1: document.getElementById('txtTimer1').value.trim(),
-        timer2: document.getElementById('txtTimer2').value.trim()
+        nextMeeting: document.getElementById('txtNextMeeting').value
       };
       saveSiteText(newText);
       closeSiteTextModal();
@@ -2538,17 +2518,13 @@
       ] };
       h.alignment = center;
 
-      // Row 5: True Maroon rule, Row 6: timer line, Row 7: spacer
+      // Row 5: True Maroon rule, Row 6: G / Y / R key, Row 7: spacer
       ws.getRow(5).height = 5;
       for (let c = 1; c <= 8; c++) ws.getRow(5).getCell(c).fill = fill(TM_BRAND.maroon);
       ws.mergeCells('A6:H6');
       ws.getRow(6).height = 22;
       const timerCell = ws.getCell('A6');
       timerCell.value = { richText: [
-        { text: '⏱  Timer 1:\u00A0', font: { name: FONT, size: 10, bold: true, color: { argb: TM_BRAND.navy } } },
-        { text: `${t.timer1 || 'TBA'}\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0`, font: { name: FONT, size: 10, color: { argb: 'FF1E293B' } } },
-        { text: 'Timer 2:\u00A0', font: { name: FONT, size: 10, bold: true, color: { argb: TM_BRAND.navy } } },
-        { text: `${t.timer2 || 'TBA'}\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0`, font: { name: FONT, size: 10, color: { argb: 'FF1E293B' } } },
         { text: 'G / Y / R = Green / Amber / Red signals (minutes)', font: { name: FONT, size: 9, italic: true, color: { argb: 'FF64748B' } } }
       ] };
       timerCell.alignment = { vertical: 'middle', horizontal: 'center' };
