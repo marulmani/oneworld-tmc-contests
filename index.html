@@ -129,6 +129,10 @@
         <button onclick="exportConfigJson()" class="px-2.5 py-1 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition text-xs flex items-center gap-1">
           <i class="fas fa-file-export text-tmGold"></i> Backup JSON
         </button>
+        <button onclick="document.getElementById('restoreFileInput').click()" class="px-2.5 py-1 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition text-xs flex items-center gap-1">
+          <i class="fas fa-file-import text-tmGold"></i> Restore Backup
+        </button>
+        <input type="file" id="restoreFileInput" accept="application/json,.json" class="hidden" onchange="importConfigJson(this)" />
         <button onclick="resetToClubDefaults()" class="px-2.5 py-1 bg-rose-700 text-white rounded-lg hover:bg-rose-800 transition text-xs flex items-center gap-1">
           <i class="fas fa-undo"></i> Reset Defaults
         </button>
@@ -1325,7 +1329,7 @@
     // guard one error would stop the agenda, role players & officers rendering.
     const store = {
       get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-      set(k, v) { try { localStorage.setItem(k, v); } catch (e) { showToast('⚠️ Could not save: browser storage is blocked or full.'); } },
+      set(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { showToast('⚠️ Could not save: browser storage is blocked or full.'); return false; } },
       remove(k) { try { localStorage.removeItem(k); } catch (e) {} }
     };
     function safeParse(str, fallback) { try { return str ? JSON.parse(str) : fallback; } catch (e) { return fallback; } }
@@ -2403,6 +2407,56 @@
       downloadAnchor.click();
       downloadAnchor.remove();
       showToast("💾 Configuration JSON downloaded.");
+    }
+
+    // Restore a file made with "Backup JSON". Only well-formed sections are applied;
+    // anything missing from the file is left as it is now.
+    function importConfigJson(inputEl) {
+      const file = inputEl.files && inputEl.files[0];
+      inputEl.value = ''; // allow picking the same file again later
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onerror = () => showToast('❌ Could not read that file.');
+      reader.onload = () => {
+        const cfg = safeParse(reader.result, null);
+        const isObj = v => v && typeof v === 'object' && !Array.isArray(v);
+        const isList = v => Array.isArray(v) && v.every(isObj);
+        if (!isObj(cfg)) { showToast('❌ That file is not a valid backup.'); return; }
+
+        // Photos must be embedded images (as the backup writes them), never external links
+        const cleanPhoto = item => { if (item.photo && !/^data:image\//.test(String(item.photo))) item.photo = ''; return item; };
+        const withIds = (list, prefix) => list.map((item, i) => cleanPhoto({ ...item, id: String(item.id || prefix + '_' + Date.now() + '_' + i) }));
+
+        const parts = [];
+        if (isList(cfg.agenda)) parts.push(['oneworld_agenda_data_v2', withIds(cfg.agenda, 'a'), cfg.agenda.length + ' agenda rows']);
+        if (isList(cfg.roles)) parts.push(['oneworld_roles_data', withIds(cfg.roles, 'r'), cfg.roles.length + ' role players']);
+        if (isList(cfg.officers)) parts.push(['oneworld_officers_data', withIds(cfg.officers, 'o'), cfg.officers.length + ' officers']);
+        if (isObj(cfg.contestants)) {
+          const groups = {};
+          let count = 0;
+          Object.keys(CONTESTANT_GROUP_META).forEach(g => { groups[g] = isList(cfg.contestants[g]) ? withIds(cfg.contestants[g], 'c_' + g) : []; count += groups[g].length; });
+          parts.push(['oneworld_contestants_data', groups, count + ' contestants']);
+        }
+        if (isObj(cfg.siteText)) {
+          const text = {};
+          Object.keys(DEFAULT_SITE_TEXT).forEach(k => { if (typeof cfg.siteText[k] === 'string') text[k] = cfg.siteText[k]; });
+          parts.push(['oneworld_site_text', text, 'page text']);
+        }
+        if (!parts.length) { showToast('❌ That file has no contest data in it.'); return; }
+
+        const when = cfg.exportedAt && !isNaN(Date.parse(cfg.exportedAt)) ? ' saved on ' + new Date(cfg.exportedAt).toLocaleString() : '';
+        if (!confirm('Restore the backup' + when + '?\n\nThis replaces what is on this page now with: ' + parts.map(x => x[2]).join(', ') + '.')) return;
+
+        const saved = parts.every(([key, value]) => store.set(key, JSON.stringify(value)));
+        renderRolePlayers();
+        renderAgenda();
+        renderExcelTable();
+        renderSiteText();
+        renderOfficers();
+        renderContestants();
+        if (saved) showToast('✅ Backup restored: ' + parts.map(x => x[2]).join(', ') + '.');
+      };
+      reader.readAsText(file);
     }
 
     function resetToClubDefaults() {
