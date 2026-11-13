@@ -502,85 +502,84 @@
   <!-- CLUB DETAILS & EXECUTIVE COMMITTEE -->
   <section id="clubinfo" class="py-16 sm:py-20 bg-white border-t border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        
-        <!-- Left: Club Identity & Meeting Details -->
-        <div class="lg:col-span-5 space-y-5">
-          <div>
-            <span class="text-xs font-heading font-extrabold text-tmNavy tracking-widest uppercase bg-tmNavy/10 px-3.5 py-1.5 rounded-full">
-              Club Identity & Meetings
-            </span>
-            <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 mt-2">
-              OneWorld Toastmasters Club
-            </h2>
-            <p class="text-xs font-semibold text-slate-500 mt-0.5">
-              Club No. 01589773 • Chartered 1 January 2011 • Area W4, District 51
-            </p>
-          </div>
 
-          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-2">
-            <h4 class="font-heading font-bold text-sm text-tmMaroon flex items-center gap-2">
-              <i class="fas fa-quote-left text-xs"></i>
-              <span>Toastmasters Club Mission</span>
-            </h4>
-            <p id="clubMissionText" class="text-slate-600 text-xs italic leading-relaxed">
-              "We provide a supportive and positive learning experience in which members are empowered to develop communication and leadership skills, resulting in greater self-confidence and personal growth."
-            </p>
-          </div>
+      <!-- Section heading (same pattern as the other sections) -->
+      <div class="text-center max-w-3xl mx-auto space-y-2 mb-10">
+        <span class="text-xs font-heading font-extrabold text-tmNavy tracking-widest uppercase bg-tmNavy/10 px-3.5 py-1.5 rounded-full">
+          Club Identity & Meetings
+        </span>
+        <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-slate-900">
+          OneWorld Toastmasters Club
+        </h2>
+        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+          Club No. 01589773 • Chartered 1 January 2011 • Area W4, District 51
+        </p>
+      </div>
 
-          <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-2 text-xs text-slate-700">
-            <div class="font-bold text-slate-900 flex items-center gap-1.5">
-              <i class="far fa-calendar-alt text-tmMaroon"></i> Regular Meetings:
-            </div>
-            <div id="meetingScheduleText">Every <strong>2nd & 4th Thursday</strong> of the month • 7:45 PM – 9:45 PM (MYT)</div>
-            <div id="nextMeetingText" class="text-tmNavy font-bold pt-1">Next Regular Meeting: 10 December 2026</div>
-          </div>
-
-                    <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-2 text-xs text-slate-700">
-                                  <div class="font-bold text-slate-900 flex items-center gap-1.5">
-                                                  <i class="fas fa-map-marker-alt text-tmMaroon"></i> Venue:
-                                  </div>
-                                                <div>OneWorld Toastmasters Club<br />Plaza Usahawan, 2-2, Jalan Danau Niaga 1, Jalan Genting Kelang, 53100 Kuala Lumpur, Federal Territory of Kuala Lumpur</div>
-                                  <a href="https://maps.app.goo.gl/U7eXTWFiQYffsyGA7" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-tmNavy font-bold pt-1 hover:text-tmMaroon transition">
-                                                  <i class="fas fa-location-arrow"></i> View on Google Maps
-                                  </a>
-                    </div>
+      <!-- Mission / Meetings / Venue -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+        <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-2">
+          <h3 class="font-heading font-bold text-sm text-tmMaroon flex items-center gap-2">
+            <i class="fas fa-quote-left text-xs"></i>
+            <span>Toastmasters Club Mission</span>
+          </h3>
+          <p id="clubMissionText" class="text-slate-600 text-xs italic leading-relaxed">
+            "We provide a supportive and positive learning experience in which members are empowered to develop communication and leadership skills, resulting in greater self-confidence and personal growth."
+          </p>
         </div>
 
-        <!-- Right: Executive Committee (Exco) Directory -->
-        <div class="lg:col-span-7">
-          <div class="bg-slate-50 rounded-3xl p-6 sm:p-7 border border-slate-200 space-y-4">
-            <div class="flex items-center justify-between">
-              <h3 class="font-heading font-extrabold text-lg sm:text-xl text-slate-900">
-                Executive Club Officers 2026 – 2027
-              </h3>
-              <span id="officersCountBadge" class="text-xs bg-tmNavy/10 text-tmNavy font-bold px-2.5 py-1 rounded-full">
-                7 Officers
-              </span>
-            </div>
-
-            <!-- Official Exco poster -->
-            <a href="assets/exco-2026-2027.jpg" target="_blank" rel="noopener" class="block rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition" title="Open the full-size poster">
-              <img src="assets/exco-2026-2027.jpg" alt="OneWorld Toastmasters Club Executive Club Officers 2026 – 2027: President Arulmani, VP Education Shamen Kumar, VP Membership Gladys Choo, VP Public Relations Lewis, Treasurer Harpreet Kaur, Secretary Mak Kum Shi and SAA Charles Chong" width="1280" height="904" loading="lazy" class="w-full h-auto block" />
-            </a>
-
-            <!-- Admin Add Officer Button -->
-            <div id="adminOfficerControls" class="hidden p-3 bg-amber-50 border border-amber-300 rounded-xl flex items-center justify-between">
-              <div class="text-[11px] text-amber-950 font-bold">
-                <i class="fas fa-user-edit mr-1"></i> Exco Directory: Add or edit officers.
-              </div>
-              <button onclick="openOfficerModal(null)" class="px-3 py-1.5 bg-tmNavy text-white rounded-lg text-[11px] font-bold hover:bg-tmNavy-dark transition flex items-center gap-1.5 shadow">
-                <i class="fas fa-user-plus text-tmGold"></i> Add Officer
-              </button>
-            </div>
-
-            <div id="dynamicOfficersContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <!-- Rendered via renderOfficers() -->
-            </div>
-          </div>
+        <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-2 text-xs text-slate-700">
+          <h3 class="font-heading font-bold text-sm text-tmMaroon flex items-center gap-2">
+            <i class="far fa-calendar-alt text-xs"></i>
+            <span>Regular Meetings</span>
+          </h3>
+          <div id="meetingScheduleText" class="leading-relaxed">Every <strong>2nd & 4th Thursday</strong> of the month • 7:45 PM – 9:45 PM (MYT)</div>
+          <div id="nextMeetingText" class="text-tmNavy font-bold pt-1">Next Regular Meeting: 10 December 2026</div>
         </div>
 
+        <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200 space-y-2 text-xs text-slate-700">
+          <h3 class="font-heading font-bold text-sm text-tmMaroon flex items-center gap-2">
+            <i class="fas fa-map-marker-alt text-xs"></i>
+            <span>Venue</span>
+          </h3>
+          <div class="leading-relaxed">OneWorld Toastmasters Club<br />Plaza Usahawan, 2-2, Jalan Danau Niaga 1, Jalan Genting Kelang, 53100 Kuala Lumpur, Federal Territory of Kuala Lumpur</div>
+          <a href="https://maps.app.goo.gl/U7eXTWFiQYffsyGA7" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-tmNavy font-bold pt-1 hover:text-tmMaroon transition">
+            <i class="fas fa-location-arrow"></i> View on Google Maps
+          </a>
+        </div>
+      </div>
+
+      <!-- Executive Committee: poster + officer directory side by side -->
+      <div class="bg-slate-50 rounded-3xl p-5 sm:p-7 border border-slate-200 space-y-5">
+        <div class="flex items-center justify-between gap-3">
+          <h3 class="font-heading font-extrabold text-lg sm:text-xl text-slate-900">
+            Executive Club Officers 2026 – 2027
+          </h3>
+          <span id="officersCountBadge" class="text-xs bg-tmNavy/10 text-tmNavy font-bold px-2.5 py-1 rounded-full whitespace-nowrap flex-shrink-0">
+            7 Officers
+          </span>
+        </div>
+
+        <!-- Admin Add Officer Button -->
+        <div id="adminOfficerControls" class="hidden p-3 bg-amber-50 border border-amber-300 rounded-xl flex items-center justify-between">
+          <div class="text-[11px] text-amber-950 font-bold">
+            <i class="fas fa-user-edit mr-1"></i> Exco Directory: Add or edit officers.
+          </div>
+          <button onclick="openOfficerModal(null)" class="px-3 py-1.5 bg-tmNavy text-white rounded-lg text-[11px] font-bold hover:bg-tmNavy-dark transition flex items-center gap-1.5 shadow">
+            <i class="fas fa-user-plus text-tmGold"></i> Add Officer
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 xl:gap-6 items-center">
+          <!-- Official Exco poster -->
+          <a href="assets/exco-2026-2027.jpg" target="_blank" rel="noopener" class="xl:col-span-7 block w-full max-w-3xl mx-auto rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition" title="Open the full-size poster">
+            <img src="assets/exco-2026-2027.jpg" alt="OneWorld Toastmasters Club Executive Club Officers 2026 – 2027: President Arulmani, VP Education Shamen Kumar, VP Membership Gladys Choo, VP Public Relations Lewis, Treasurer Harpreet Kaur, Secretary Mak Kum Shi and SAA Charles Chong" width="1280" height="904" loading="lazy" class="w-full h-auto block" />
+          </a>
+
+          <div id="dynamicOfficersContainer" class="xl:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-3 text-xs">
+            <!-- Rendered via renderOfficers() -->
+          </div>
+        </div>
       </div>
 
     </div>
@@ -2110,7 +2109,7 @@
           : `<div class="flex-shrink-0 rounded-full ring-2 ${colorSet.ring}">${avatarInner}</div>`;
 
         if (o.highlight) {
-          card.className = "p-3.5 rounded-xl border border-tmGold bg-amber-50/60 sm:col-span-2 flex items-center justify-between gap-3 flex-wrap";
+          card.className = "p-3.5 rounded-xl border border-tmGold bg-amber-50/60 sm:col-span-2 lg:col-span-3 xl:col-span-2 flex items-center justify-between gap-3 flex-wrap";
           card.innerHTML = `
             <div class="flex items-center gap-3.5 min-w-0">
               ${photoHtml}
