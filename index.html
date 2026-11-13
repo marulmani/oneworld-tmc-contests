@@ -1071,7 +1071,8 @@
         program: 'Contestants:\n1) Serene Lee\n2) Arulmani\n3) Shamen Kumar',
         details: 'Speech timing: 🟢 5m | 🟡 6m | 🔴 7m (DQ: <4:30 or >7:30)',
         rolePlayer: 'Susan Woo, DTM',
-        category: 'international'
+        category: 'international',
+        highlightRow: true
       },
       {
         id: 'a4',
@@ -1114,7 +1115,6 @@
       },
       {
         id: 'a5_2',
-        highlightRow: true,
         from: '8:10 PM',
         to: '8:13 PM',
         mins: '3',
@@ -1230,7 +1230,8 @@
         program: 'Contestants:\n1) Arulmani\n2) Shamen\n3) Lewis\n4) Serene',
         details: 'Table Topics timing: 🟢 1m | 🟡 1.5m | 🔴 2m (DQ: <1:00 or >2:30)',
         rolePlayer: 'Harpreet Kaur, DTM',
-        category: 'topics'
+        category: 'topics',
+        highlightRow: true
       },
       {
         id: 'a7_4',
@@ -1659,7 +1660,8 @@
             <span>${esc(val || '–')}</span>
           </div>`;
 
-        card.className = `bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm ${borderClass} ${item.isSectionHeader ? 'bg-slate-50' : ''} relative transition`;
+        const cardBg = item.highlightRow ? 'bg-amber-50' : (item.isSectionHeader ? 'bg-slate-50' : 'bg-white');
+        card.className = `${cardBg} p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm ${borderClass} relative transition`;
 
         card.innerHTML = `
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
