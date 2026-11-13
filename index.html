@@ -2452,6 +2452,7 @@
       const t = getSiteText();
       const contestants = getContestantsData();
       const officers = getOfficersData();
+      const roles = getRolesData();
 
       const wb = new ExcelJS.Workbook();
       wb.creator = 'OneWorld Toastmasters Club';
@@ -2518,18 +2519,11 @@
       ] };
       h.alignment = center;
 
-      // Row 5: True Maroon rule, Row 6: G / Y / R key, Row 7: spacer
+      // Row 5: True Maroon rule, Rows 6-7: thin spacers before the table
       ws.getRow(5).height = 5;
       for (let c = 1; c <= 8; c++) ws.getRow(5).getCell(c).fill = fill(TM_BRAND.maroon);
-      ws.mergeCells('A6:H6');
-      ws.getRow(6).height = 22;
-      const timerCell = ws.getCell('A6');
-      timerCell.value = { richText: [
-        { text: 'G / Y / R = Green / Amber / Red signals (minutes)', font: { name: FONT, size: 9, italic: true, color: { argb: 'FF64748B' } } }
-      ] };
-      timerCell.alignment = { vertical: 'middle', horizontal: 'center' };
-      timerCell.fill = fill(TM_BRAND.fairGray);
-      ws.getRow(7).height = 6;
+      ws.getRow(6).height = 4;
+      ws.getRow(7).height = 4;
 
       // ---- Table headers (rows 8-9) ----
       ws.mergeCells('A8:C8'); ws.mergeCells('D8:F8');
@@ -2639,7 +2633,18 @@
         rowNo++;
       };
 
+      // ---- Role players (everyone from the "Contest Officials & Key Role Players" section) ----
+      sectionTitle('CONTEST OFFICIALS & ROLE PLAYERS');
+      if (!roles.length) infoRow('Role Players', 'TBA');
+      roles.forEach(r => {
+        const cred = cleanCell(r.credentials);
+        // Skip the generic "Role Player" placeholder so the line stays clean
+        const extra = cred && cred.toLowerCase() !== 'role player' ? `   (${cred})` : '';
+        infoRow(cleanCell(r.badge || r.title), cleanCell(r.name) + extra);
+      });
+
       // ---- Speaking orders ----
+      rowNo += 1;
       sectionTitle('OFFICIAL SPEAKING ORDERS');
       const orderLine = list => (list || []).map((c, i) => `${i + 1}. ${c.name}`).join('     ') || 'TBA';
       infoRow('International Speech (5–7 min)', orderLine(contestants.international));
