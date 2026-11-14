@@ -140,6 +140,14 @@
     </div>
   </div>
 
+  <!-- NOTICE: this browser is showing locally saved organizer edits instead of the published page -->
+  <div id="localEditsNotice" class="hidden bg-sky-50 border-b border-sky-200 text-sky-950 text-xs sm:text-sm px-4 py-2.5">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-center">
+      <span><i class="fas fa-info-circle mr-1"></i> This device is showing <strong>edits saved in this browser</strong>, so it can differ from what other people see.</span>
+      <button onclick="showPublishedVersion()" class="px-3 py-1.5 rounded-lg bg-tmNavy text-white font-bold hover:bg-tmNavy-dark transition whitespace-nowrap">Show published version</button>
+    </div>
+  </div>
+
   <!-- MAIN NAVIGATION -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[76px] sm:h-20 flex items-center justify-between gap-2">
@@ -1352,9 +1360,33 @@
     // guard one error would stop the agenda, role players & officers rendering.
     const store = {
       get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-      set(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { showToast('⚠️ Could not save: browser storage is blocked or full.'); return false; } },
-      remove(k) { try { localStorage.removeItem(k); } catch (e) {} }
+      set(k, v) { try { localStorage.setItem(k, v); updateLocalEditsNotice(); return true; } catch (e) { showToast('⚠️ Could not save: browser storage is blocked or full.'); return false; } },
+      remove(k) { try { localStorage.removeItem(k); } catch (e) {} updateLocalEditsNotice(); }
     };
+
+    // Organizer edits are saved only in the browser they were made in, and they take
+    // priority over the published page on that device. So a phone and a laptop can show
+    // different content. The notice makes that visible and offers a way back.
+    const LOCAL_DATA_KEYS = ['oneworld_roles_data', 'oneworld_agenda_data_v2', 'oneworld_site_text', 'oneworld_officers_data', 'oneworld_contestants_data'];
+    function hasLocalEdits() { return LOCAL_DATA_KEYS.some(k => store.get(k) !== null); }
+    function updateLocalEditsNotice() {
+      const notice = document.getElementById('localEditsNotice');
+      if (notice) notice.classList.toggle('hidden', !hasLocalEdits());
+    }
+    function renderEverything() {
+      renderRolePlayers();
+      renderAgenda();
+      renderExcelTable();
+      renderSiteText();
+      renderOfficers();
+      renderContestants();
+    }
+    function showPublishedVersion() {
+      if (!confirm('Show the published page on this device?\n\nEdits and photos saved only in this browser will be removed. If you are an organizer and want to keep them, cancel and use "Backup JSON" first.')) return;
+      LOCAL_DATA_KEYS.forEach(k => store.remove(k));
+      renderEverything();
+      showToast('✅ Now showing the published version.');
+    }
     function safeParse(str, fallback) { try { return str ? JSON.parse(str) : fallback; } catch (e) { return fallback; } }
 
     // --- HTML ESCAPING ---
@@ -2950,6 +2982,7 @@
       if (window.matchMedia('(max-width: 639px)').matches) setAgendaView('cards');
       checkOrganizerLinkAccess();
       initScrollSpy();
+      updateLocalEditsNotice();
     }
     bootApp();
   </script>
