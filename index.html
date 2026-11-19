@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OneWorld Toastmasters Club Contests 2026</title>
-  <meta name="description" content="OneWorld Toastmasters Club Contests 2026 — International Speech, Evaluation and Table Topics. Thursday, 26 November 2026, 7:30 PM (MYT), Plaza Usahawan, Kuala Lumpur." />
+  <meta name="description" content="OneWorld Toastmasters Club Contests 2026 — International Speech, Evaluation and Table Topics. Thursday, 26 November 2026. Arrival 7:00 PM, contest 7:30 PM (MYT), Plaza Usahawan, Kuala Lumpur." />
   <meta name="theme-color" content="#772432" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="OneWorld Toastmasters Club Contests 2026" />
-  <meta property="og:description" content="International Speech • Evaluation • Table Topics. Thursday, 26 Nov 2026, 7:30 PM (MYT), Plaza Usahawan, Kuala Lumpur." />
+  <meta property="og:description" content="International Speech • Evaluation • Table Topics. Thursday, 26 Nov 2026. Arrival 7:00 PM, contest 7:30 PM (MYT), Plaza Usahawan, Kuala Lumpur." />
   <meta property="og:image" content="assets/photo-contest.jpg" />
   <link rel="icon" type="image/png" href="assets/tm-logo.png" />
   <!-- Tailwind CSS CDN -->
@@ -231,7 +231,7 @@
             </div>
             <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/15 text-xs sm:text-sm">
               <i class="far fa-clock text-tmGold text-base"></i>
-              <div class="text-left font-bold">7:30 PM – 9:40 PM (MYT)</div>
+              <div class="text-left font-bold">Arrive 7:00 PM • Contest 7:30 – 9:40 PM (MYT)</div>
             </div>
                         <a href="https://maps.app.goo.gl/U7eXTWFiQYffsyGA7" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/15 text-xs sm:text-sm hover:bg-white/20 transition" title="OneWorld Toastmasters Club, Plaza Usahawan, 2-2, Jalan Danau Niaga 1, Jalan Genting Kelang, 53100 Kuala Lumpur">
                                         <i class="fas fa-map-marker-alt text-tmGold text-base"></i>
@@ -1034,13 +1034,26 @@
       }
     ];
 
-    // Times run back to back: each row starts when the previous one ends. A contest header row
-    // (isSectionHeader) spans the whole contest; its steps are listed beneath it.
+    // Arrival runs 7:00-7:30 PM. Every activity starts one minute after the previous one ends.
+    // A contest header row (isSectionHeader) spans the whole contest; its steps are listed beneath it.
     const DEFAULT_AGENDA = [
       {
+        id: 'a0',
+        from: '7:00 PM',
+        to: '7:30 PM',
+        mins: '30',
+        g: '',
+        y: '',
+        r: '',
+        program: 'Everybody\'s arriving: registration & technical checks',
+        details: 'Check-in of contestants, judges, role players and guests. Troubleshooting of the room, microphone and timing lights before the contest starts.',
+        rolePlayer: '',
+        category: 'general'
+      },
+      {
         id: 'a1',
-        from: '7:30 PM',
-        to: '7:32 PM',
+        from: '7:31 PM',
+        to: '7:33 PM',
         mins: '2',
         g: '1',
         y: '1.5',
@@ -1052,8 +1065,8 @@
       },
       {
         id: 'a2',
-        from: '7:32 PM',
-        to: '7:35 PM',
+        from: '7:34 PM',
+        to: '7:37 PM',
         mins: '3',
         g: '1',
         y: '2',
@@ -1066,8 +1079,8 @@
       {
         id: 'a3_header',
         isSectionHeader: true,
-        from: '7:35 PM',
-        to: '8:00 PM',
+        from: '7:38 PM',
+        to: '8:03 PM',
         mins: '25',
         g: '',
         y: '',
@@ -1093,9 +1106,9 @@
       },
       {
         id: 'a4',
-        from: '8:00 PM',
-        to: '8:08 PM',
-        mins: '8',
+        from: '8:04 PM',
+        to: '8:10 PM',
+        mins: '6',
         g: '',
         y: '',
         r: '',
@@ -1107,9 +1120,9 @@
       {
         id: 'a5_banner',
         isSectionHeader: true,
-        from: '8:08 PM',
-        to: '8:39 PM',
-        mins: '31',
+        from: '8:11 PM',
+        to: '8:46 PM',
+        mins: '35',
         g: '',
         y: '',
         r: '',
@@ -1119,8 +1132,8 @@
       },
       {
         id: 'a5_1',
-        from: '8:08 PM',
-        to: '8:10 PM',
+        from: '8:11 PM',
+        to: '8:13 PM',
         mins: '2',
         g: '1',
         y: '1.5',
@@ -1132,8 +1145,8 @@
       },
       {
         id: 'a5_2',
-        from: '8:10 PM',
-        to: '8:13 PM',
+        from: '8:14 PM',
+        to: '8:17 PM',
         mins: '3',
         g: '1',
         y: '2',
@@ -1145,8 +1158,8 @@
       },
       {
         id: 'a5_3',
-        from: '8:13 PM',
-        to: '8:20 PM',
+        from: '8:18 PM',
+        to: '8:25 PM',
         mins: '7',
         g: '5',
         y: '6',
@@ -1158,8 +1171,8 @@
       },
       {
         id: 'a5_4',
-        from: '8:20 PM',
-        to: '8:25 PM',
+        from: '8:26 PM',
+        to: '8:31 PM',
         mins: '5',
         g: '3',
         y: '4',
@@ -1172,8 +1185,8 @@
       {
         id: 'a5_5',
         highlightRow: true,
-        from: '8:25 PM',
-        to: '8:39 PM',
+        from: '8:32 PM',
+        to: '8:46 PM',
         mins: '14',
         g: '',
         y: '',
@@ -1185,9 +1198,9 @@
       },
       {
         id: 'a6',
-        from: '8:39 PM',
-        to: '9:03 PM',
-        mins: '24',
+        from: '8:47 PM',
+        to: '8:57 PM',
+        mins: '10',
         g: '',
         y: '',
         r: '',
@@ -1199,9 +1212,9 @@
       {
         id: 'a7_banner',
         isSectionHeader: true,
-        from: '9:03 PM',
-        to: '9:22 PM',
-        mins: '19',
+        from: '8:58 PM',
+        to: '9:19 PM',
+        mins: '21',
         g: '',
         y: '',
         r: '',
@@ -1211,8 +1224,8 @@
       },
       {
         id: 'a7_1',
-        from: '9:03 PM',
-        to: '9:04 PM',
+        from: '8:58 PM',
+        to: '8:59 PM',
         mins: '1',
         g: '',
         y: '',
@@ -1224,8 +1237,8 @@
       },
       {
         id: 'a7_2',
-        from: '9:04 PM',
-        to: '9:07 PM',
+        from: '9:00 PM',
+        to: '9:03 PM',
         mins: '3',
         g: '1',
         y: '2',
@@ -1238,8 +1251,9 @@
       {
         id: 'a7_3',
         isSubRow: true,
-        from: '9:07 PM',
-        to: '9:22 PM',
+        highlightRow: true,
+        from: '9:04 PM',
+        to: '9:19 PM',
         mins: '15',
         g: '',
         y: '',
@@ -1247,13 +1261,12 @@
         program: 'Contestants:\n1) Shamen\n2) Arulmani\n3) Lewis\n4) Serene',
         details: 'Table Topics timing: 🟢 1m | 🟡 1.5m | 🔴 2m (DQ: <1:00 or >2:30)',
         rolePlayer: 'Harpreet Kaur, DTM',
-        category: 'topics',
-        highlightRow: true
+        category: 'topics'
       },
       {
         id: 'a7_4',
-        from: '9:22 PM',
-        to: '9:27 PM',
+        from: '9:20 PM',
+        to: '9:25 PM',
         mins: '5',
         g: '',
         y: '',
@@ -1265,8 +1278,8 @@
       },
       {
         id: 'a8',
-        from: '9:27 PM',
-        to: '9:37 PM',
+        from: '9:26 PM',
+        to: '9:36 PM',
         mins: '10',
         g: '',
         y: '',
@@ -2630,7 +2643,7 @@
       ws.getCell('C2').font = { name: HEAD, size: 12, bold: true, color: { argb: TM_BRAND.maroon } };
       ws.getCell('C3').value = 'Club No. 01589773  •  Area W4  •  Division W  •  District 51';
       ws.getCell('C3').font = { name: FONT, size: 9, color: { argb: 'FF475569' } };
-      ws.getCell('C4').value = 'Thursday, 26 November 2026  •  7:30 – 9:40 PM (MYT)  •  Plaza Usahawan, KL';
+      ws.getCell('C4').value = 'Thursday, 26 November 2026  •  Arrival 7:00 PM  •  Contest 7:30 – 9:40 PM (MYT)  •  Plaza Usahawan, KL';
       ws.getCell('C4').font = { name: FONT, size: 9, bold: true, color: { argb: 'FF1E293B' } };
       ['C1', 'C2', 'C3', 'C4'].forEach(a => { ws.getCell(a).alignment = { vertical: 'middle', horizontal: 'center' }; });
 
@@ -2877,9 +2890,9 @@
         "UID:oneworld-club-contests-20261126@oneworldtoastmasters",
         "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''),
         "SUMMARY:OneWorld Toastmasters Club Contests 2026",
-        "DESCRIPTION:International Speech\\, Evaluation\\, and Table Topics Contests. Area W4\\, District 51.",
+        "DESCRIPTION:Arrival\\, registration and technical checks from 7:00 PM. Contest starts 7:30 PM. International Speech\\, Evaluation\\, and Table Topics Contests. Area W4\\, District 51.",
         "LOCATION:OneWorld Toastmasters Club\\, Plaza Usahawan\\, 2-2\\, Jalan Danau Niaga 1\\, Jalan Genting Kelang\\, 53100 Kuala Lumpur\\, Malaysia",
-        "DTSTART:20261126T113000Z",
+        "DTSTART:20261126T110000Z",
         "DTEND:20261126T134000Z",
         "END:VEVENT",
         "END:VCALENDAR"
